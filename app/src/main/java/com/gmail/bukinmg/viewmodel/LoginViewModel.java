@@ -30,6 +30,8 @@ public class LoginViewModel extends ViewModel {
     public LoginViewModel(Repository repository) {
         this.repository = repository;
         users = repository.getUsers();
+        eMail.postValue("");
+        password.postValue("");
     }
 
     public void onLoginClicked() {
@@ -37,7 +39,7 @@ public class LoginViewModel extends ViewModel {
         String userEmail = eMail.getValue();
         String userPassword = password.getValue();
 
-        if (userEmail == null) {
+        if (userEmail.equals("")) {
             errorEmail.setValue("Enter eMail");
         } else if (!isEmailValid(userEmail, users)) {
             errorEmail.setValue("Enter valid eMail");
@@ -45,7 +47,7 @@ public class LoginViewModel extends ViewModel {
             errorEmail.setValue(null);
         }
 
-        if (userPassword == null) {
+        if (userPassword.equals("")) {
             errorPassword.setValue("Enter password");
         } else if (!isPasswordValid(userEmail, userPassword, users)) {
             errorPassword.setValue("Enter valid password");
@@ -60,6 +62,8 @@ public class LoginViewModel extends ViewModel {
 
     private boolean isEmailValid(String eMail, List<User> users) {
 
+        if (eMail.equals("")) return false;
+
         for (User user : users
         ) {
             if (user.getEMail().equals(eMail)) {
@@ -70,6 +74,8 @@ public class LoginViewModel extends ViewModel {
     }
 
     private boolean isPasswordValid(String eMail, String password, List<User> users) {
+
+        if (eMail.equals("") || password.equals("")) return false;
 
         for (User user : users
         ) {

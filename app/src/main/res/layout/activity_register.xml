@@ -18,12 +18,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_text_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
             app:errorEnabled="true"
+            app:errorIconDrawable="@null"
             app:errorText="@{registerViewModel.errorEmail}"
             app:layout_constraintBottom_toTopOf="@id/edit_text_password"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,12 +43,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_text_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
             app:errorEnabled="true"
+            app:errorIconDrawable="@null"
             app:errorText="@{registerViewModel.errorPassword}"
             app:layout_constraintBottom_toTopOf="@+id/edit_text_confirm_password"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,12 +68,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_text_confirm_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
             app:errorEnabled="true"
+            app:errorIconDrawable="@null"
             app:errorText="@{registerViewModel.errorConfirmPassword}"
             app:layout_constraintBottom_toTopOf="@+id/button_main_event"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +112,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="120dp"
-            android:text="@string/register"
             android:onClick="@{()-> registerViewModel.onRegisterClicked()}"
+            android:text="@string/register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

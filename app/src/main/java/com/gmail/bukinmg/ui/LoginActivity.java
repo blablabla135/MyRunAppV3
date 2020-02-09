@@ -8,22 +8,31 @@ import android.os.Bundle;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityLoginBinding;
-import com.gmail.bukinmg.di.DaggerAppComponent;
+import com.gmail.bukinmg.di.ViewModelFactory;
 import com.gmail.bukinmg.viewmodel.LoginViewModel;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 public class LoginActivity extends AppCompatActivity {
 
     @Inject
-    LoginViewModel loginViewModel;
-    ActivityLoginBinding activityLoginBinding;
+    ViewModelFactory viewModelFactory;
+    private LoginViewModel loginViewModel;
+    private ActivityLoginBinding activityLoginBinding;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DaggerAppComponent.builder().build().inject(this);
+        AndroidInjection.inject(this);
+
+        loginViewModel = new ViewModelProvider(this, viewModelFactory).get(LoginViewModel.class);
 
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         activityLoginBinding.setLoginViewModel(loginViewModel);

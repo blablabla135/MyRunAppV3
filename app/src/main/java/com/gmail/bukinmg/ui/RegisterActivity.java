@@ -2,30 +2,36 @@ package com.gmail.bukinmg.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityRegisterBinding;
-import com.gmail.bukinmg.di.DaggerAppComponent;
-import com.gmail.bukinmg.viewmodel.LoginViewModel;
+import com.gmail.bukinmg.di.ViewModelFactory;
 import com.gmail.bukinmg.viewmodel.RegisterViewModel;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
+
 public class RegisterActivity extends AppCompatActivity {
 
     @Inject
-    RegisterViewModel registerViewModel;
-    ActivityRegisterBinding activityRegisterBinding;
+    ViewModelFactory viewModelFactory;
+    private RegisterViewModel registerViewModel;
+    private ActivityRegisterBinding activityRegisterBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        DaggerAppComponent.builder().build().inject(this);
+        AndroidInjection.inject(this);
+
+        registerViewModel = new ViewModelProvider(this, viewModelFactory).get(RegisterViewModel.class);
+
 
         activityRegisterBinding = DataBindingUtil.setContentView(this, R.layout.activity_register);
         activityRegisterBinding.setRegisterViewModel(registerViewModel);

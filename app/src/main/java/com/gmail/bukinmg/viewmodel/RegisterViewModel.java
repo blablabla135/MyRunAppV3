@@ -30,6 +30,9 @@ public class RegisterViewModel extends ViewModel {
     public RegisterViewModel(Repository repository) {
         this.repository = repository;
         users = repository.getUsers();
+        eMail.postValue("");
+        password.postValue("");
+        confirmPassword.postValue("");
     }
 
     public void onRegisterClicked() {
@@ -38,7 +41,7 @@ public class RegisterViewModel extends ViewModel {
         String userPassword = password.getValue();
         String userConfirmPassword = confirmPassword.getValue();
 
-        if (userEmail == null) {
+        if (userEmail.equals("")) {
             errorEmail.setValue("Enter eMail");
         } else if (!isEmailValid(userEmail, users)) {
             errorEmail.setValue("Enter valid eMail");
@@ -46,7 +49,7 @@ public class RegisterViewModel extends ViewModel {
             errorEmail.setValue(null);
         }
 
-        if (userPassword == null) {
+        if (userPassword.equals("")) {
             errorPassword.setValue("Enter password");
         } else if (!isPasswordValid(userPassword, userConfirmPassword)) {
             errorPassword.setValue("Enter valid password");
@@ -54,7 +57,7 @@ public class RegisterViewModel extends ViewModel {
             errorPassword.setValue(null);
         }
 
-        if (confirmPassword == null) {
+        if (confirmPassword.equals("")) {
             errorConfirmPassword.setValue("Enter password");
         } else if (!isPasswordValid(userPassword, userConfirmPassword)) {
             errorConfirmPassword.setValue("Enter valid password");
@@ -72,6 +75,8 @@ public class RegisterViewModel extends ViewModel {
 
     private boolean isEmailValid(String eMail, List<User> users) {
 
+        if (eMail.equals("")) return false;
+
         for (User user : users
         ) {
             if (user.getEMail().equals(eMail)) {
@@ -82,6 +87,7 @@ public class RegisterViewModel extends ViewModel {
     }
 
     private boolean isPasswordValid(String password, String confirmPassword) {
+        if (password.equals("")) return false;
         return password.equals(confirmPassword);
     }
 

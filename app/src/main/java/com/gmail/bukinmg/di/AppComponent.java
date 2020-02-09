@@ -1,17 +1,27 @@
 package com.gmail.bukinmg.di;
 
-import com.gmail.bukinmg.ui.LoginActivity;
-import com.gmail.bukinmg.ui.MainMenuActivity;
-import com.gmail.bukinmg.ui.RegisterActivity;
+import android.app.Application;
 
+import javax.inject.Singleton;
+
+import dagger.BindsInstance;
 import dagger.Component;
 
-@Component
+import dagger.android.support.AndroidSupportInjectionModule;
+
+@Component(modules = {ViewModelModule.class, ActivityModule.class, AndroidSupportInjectionModule.class})
+
+@Singleton
 public interface AppComponent {
 
-    void inject(LoginActivity loginActivity);
+    @Component.Builder
+    interface Builder {
 
-    void inject(RegisterActivity registerActivity);
+        @BindsInstance
+        Builder application(Application application);
 
-    void inject(MainMenuActivity mainMenuActivity);
+        AppComponent build();
+    }
+
+    void inject(AppController appController);
 }
