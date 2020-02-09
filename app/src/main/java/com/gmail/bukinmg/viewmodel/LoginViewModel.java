@@ -1,11 +1,12 @@
 package com.gmail.bukinmg.viewmodel;
 
 import androidx.databinding.BindingAdapter;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.gmail.bukinmg.model.Entity.User;
 import com.gmail.bukinmg.model.Repository;
-import com.gmail.bukinmg.utill.User;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import javax.inject.Inject;
 public class LoginViewModel extends ViewModel {
 
     private Repository repository;
-    private List<User> users;
+    private LiveData<List<User>> usersList;
 
 
     public MutableLiveData<String> errorEmail = new MutableLiveData<>();
@@ -29,7 +30,7 @@ public class LoginViewModel extends ViewModel {
     @Inject
     public LoginViewModel(Repository repository) {
         this.repository = repository;
-        users = repository.getUsers();
+        usersList = repository.getUsersList();
         eMail.postValue("");
         password.postValue("");
     }
@@ -41,7 +42,7 @@ public class LoginViewModel extends ViewModel {
 
         if (userEmail.equals("")) {
             errorEmail.setValue("Enter eMail");
-        } else if (!isEmailValid(userEmail, users)) {
+        } else if (!isEmailValid(userEmail, usersList)) {
             errorEmail.setValue("Enter valid eMail");
         } else {
             errorEmail.setValue(null);
@@ -49,22 +50,22 @@ public class LoginViewModel extends ViewModel {
 
         if (userPassword.equals("")) {
             errorPassword.setValue("Enter password");
-        } else if (!isPasswordValid(userEmail, userPassword, users)) {
+        } else if (!isPasswordValid(userEmail, userPassword, usersList)) {
             errorPassword.setValue("Enter valid password");
         } else {
             errorPassword.setValue(null);
         }
 
-        if (isPasswordValid(userEmail, userPassword, users) && isEmailValid(userEmail, users)) {
+        if (isPasswordValid(userEmail, userPassword, usersList) && isEmailValid(userEmail, usersList)) {
             mainTrigger.setValue(true);
         }
     }
 
-    private boolean isEmailValid(String eMail, List<User> users) {
+    private boolean isEmailValid(String eMail, LiveData<List<User>> users) {
 
         if (eMail.equals("")) return false;
 
-        for (User user : users
+        for (User user : users.getValue()
         ) {
             if (user.getEMail().equals(eMail)) {
                 return true;
@@ -73,11 +74,11 @@ public class LoginViewModel extends ViewModel {
         return false;
     }
 
-    private boolean isPasswordValid(String eMail, String password, List<User> users) {
+    private boolean isPasswordValid(String eMail, String password, LiveData<List<User>> users) {
 
         if (eMail.equals("") || password.equals("")) return false;
 
-        for (User user : users
+        for (User user : users.getValue()
         ) {
             if (user.getEMail().equals(eMail) && user.getPassword().equals(password)) {
                 return true;

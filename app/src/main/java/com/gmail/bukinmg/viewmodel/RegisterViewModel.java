@@ -1,12 +1,14 @@
 package com.gmail.bukinmg.viewmodel;
 
 import androidx.databinding.BindingAdapter;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.gmail.bukinmg.model.Entity.User;
 import com.gmail.bukinmg.model.Repository;
-import com.gmail.bukinmg.utill.User;
 import com.google.android.material.textfield.TextInputLayout;
+
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import javax.inject.Inject;
 public class RegisterViewModel extends ViewModel {
 
     private Repository repository;
-    private List<User> users;
+    private LiveData<List<User>> usersList;
 
     public MutableLiveData<String> errorEmail = new MutableLiveData<>();
     public MutableLiveData<String> errorPassword = new MutableLiveData<>();
@@ -29,7 +31,7 @@ public class RegisterViewModel extends ViewModel {
     @Inject
     public RegisterViewModel(Repository repository) {
         this.repository = repository;
-        users = repository.getUsers();
+        usersList = repository.getUsersList();
         eMail.postValue("");
         password.postValue("");
         confirmPassword.postValue("");
@@ -43,7 +45,7 @@ public class RegisterViewModel extends ViewModel {
 
         if (userEmail.equals("")) {
             errorEmail.setValue("Enter eMail");
-        } else if (!isEmailValid(userEmail, users)) {
+        } else if (!isEmailValid(userEmail, usersList)) {
             errorEmail.setValue("Enter valid eMail");
         } else {
             errorEmail.setValue(null);
@@ -65,7 +67,7 @@ public class RegisterViewModel extends ViewModel {
             errorConfirmPassword.setValue(null);
         }
 
-        if (isPasswordValid(userPassword, userConfirmPassword) && isEmailValid(userEmail, users)) {
+        if (isPasswordValid(userPassword, userConfirmPassword) && isEmailValid(userEmail, usersList)) {
 
             // add user
 
@@ -73,11 +75,11 @@ public class RegisterViewModel extends ViewModel {
         }
     }
 
-    private boolean isEmailValid(String eMail, List<User> users) {
+    private boolean isEmailValid(String eMail, LiveData<List<User>> users) {
 
         if (eMail.equals("")) return false;
 
-        for (User user : users
+        for (User user : users.getValue()
         ) {
             if (user.getEMail().equals(eMail)) {
                 return false;

@@ -1,32 +1,53 @@
 package com.gmail.bukinmg.model;
 
-import com.gmail.bukinmg.utill.User;
+import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
+import com.gmail.bukinmg.model.Dao.EventDao;
+import com.gmail.bukinmg.model.Dao.MainEventDao;
+import com.gmail.bukinmg.model.Dao.UserDao;
+import com.gmail.bukinmg.model.Entity.Event;
+import com.gmail.bukinmg.model.Entity.MainEvent;
+import com.gmail.bukinmg.model.Entity.User;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class Repository {
 
-    private List<User> users = new ArrayList<>();
-    private List<String> dates = new ArrayList<>();
+    private UserDao userDao;
+    private EventDao eventDao;
+    private MainEventDao mainEventDao;
+
+    private LiveData<List<User>> usersList;
+    private LiveData<List<Event>> eventsList;
+    private LiveData<List<MainEvent>> mainEventsList;
+
 
     @Inject
-    public Repository() {
-        users.add(new User("1", "1"));
-        users.add(new User("2", "2"));
-
-        for (int i = 0; i < 45; i++) {
-            dates.add(String.valueOf(i));
+        public Repository(UserDao userDao, EventDao eventDao, MainEventDao mainEventDao) {
+            this.userDao = userDao;
+            this.eventDao = eventDao;
+            this.mainEventDao = mainEventDao;
+            usersList = userDao.getAllUsers();
+            eventsList = eventDao.getAllEvents();
+            mainEventsList = mainEventDao.getAllMainEvents();
         }
+
+    public LiveData<List<User>> getUsersList() {
+        return usersList;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public LiveData<List<Event>> getEventsList() {
+        return eventsList;
     }
 
-    public List<String> getDates() {
-        return dates;
+    public LiveData<List<MainEvent>> getMainEventsList() {
+        return mainEventsList;
     }
 }
+
+
+
+
