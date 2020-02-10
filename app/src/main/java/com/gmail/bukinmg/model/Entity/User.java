@@ -14,14 +14,11 @@ public class User {
 
     private String password;
 
-    private long firstRunDate;
-
     private int mainEventId;
 
-    public User(String eMail, String password, long firstRunDate, int mainEventId) {
+    public User(String eMail, String password, int mainEventId) {
         this.eMail = eMail;
         this.password = password;
-        this.firstRunDate = firstRunDate;
         this.mainEventId = mainEventId;
     }
 
@@ -35,10 +32,6 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public long getFirstRunDate() {
-        return firstRunDate;
     }
 
     public int getMainEventId() {
@@ -55,10 +48,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setFirstRunDate(long firstRunDate) {
-        this.firstRunDate = firstRunDate;
     }
 
     public void setMainEventId(int mainEventId) {

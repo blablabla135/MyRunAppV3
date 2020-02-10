@@ -69,7 +69,7 @@ public class RegisterViewModel extends ViewModel {
 
         if (isPasswordValid(userPassword, userConfirmPassword) && isEmailValid(userEmail, usersList)) {
 
-            // add user
+            repository.addUser(new User(userEmail, userPassword, 1));
 
             loginTrigger.setValue(true);
         }
@@ -78,6 +78,8 @@ public class RegisterViewModel extends ViewModel {
     private boolean isEmailValid(String eMail, LiveData<List<User>> users) {
 
         if (eMail.equals("")) return false;
+
+        if (users.getValue() == null) return true;
 
         for (User user : users.getValue()
         ) {

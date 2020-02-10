@@ -1,5 +1,7 @@
 package com.gmail.bukinmg.model;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import com.gmail.bukinmg.model.Dao.EventDao;
@@ -37,6 +39,8 @@ public class Repository {
 
     public LiveData<List<User>> getUsersList() {
         return usersList;
+
+
     }
 
     public LiveData<List<Event>> getEventsList() {
@@ -46,6 +50,22 @@ public class Repository {
     public LiveData<List<MainEvent>> getMainEventsList() {
         return mainEventsList;
     }
+
+    public void addUser(User user) {
+        userDao.insert(user);
+    }
+
+    public void updateUser(User user) {
+        userDao.update(user);
+    }
+
+    public void deleteUser(User user) {
+        userDao.delete(user);
+    }
+
+
+
+
 }
 
 
