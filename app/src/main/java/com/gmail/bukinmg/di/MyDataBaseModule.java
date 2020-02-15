@@ -25,7 +25,7 @@ public class MyDataBaseModule {
     public MyDataBase provideMyDataBase(@NonNull Application application) {
         return Room.databaseBuilder(application,
                 MyDataBase.class, "my_database").fallbackToDestructiveMigration()
-                .allowMainThreadQueries().build();
+                .build();
     }
 
     @Singleton

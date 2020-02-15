@@ -30,7 +30,7 @@ public class LoginViewModel extends ViewModel {
     @Inject
     public LoginViewModel(Repository repository) {
         this.repository = repository;
-        usersList = repository.getUsersList();
+        usersList = repository.getAllUsers();
         eMail.postValue("");
         password.postValue("");
     }
@@ -65,8 +65,6 @@ public class LoginViewModel extends ViewModel {
 
         if (eMail.equals("")) return false;
 
-        if (users.getValue() == null) return true;
-
         for (User user : users.getValue()
         ) {
             if (user.getEMail().equals(eMail)) {
@@ -79,8 +77,6 @@ public class LoginViewModel extends ViewModel {
     private boolean isPasswordValid(String eMail, String password, LiveData<List<User>> users) {
 
         if (eMail.equals("") || password.equals("")) return false;
-
-        if (users.getValue() == null) return true;
 
         for (User user : users.getValue()
         ) {
