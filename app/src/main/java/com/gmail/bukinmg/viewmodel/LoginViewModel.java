@@ -16,7 +16,6 @@ import javax.inject.Inject;
 public class LoginViewModel extends ViewModel {
 
     private Repository repository;
-    private LiveData<List<User>> usersList;
 
 
     public MutableLiveData<String> errorEmail = new MutableLiveData<>();
@@ -30,12 +29,13 @@ public class LoginViewModel extends ViewModel {
     @Inject
     public LoginViewModel(Repository repository) {
         this.repository = repository;
-        usersList = repository.getAllUsers();
         eMail.postValue("");
         password.postValue("");
     }
 
     public void onLoginClicked() {
+
+        List<User> usersList = repository.getAllUsers();
 
         String userEmail = eMail.getValue();
         String userPassword = password.getValue();
@@ -61,11 +61,11 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    private boolean isEmailValid(String eMail, LiveData<List<User>> users) {
+    private boolean isEmailValid(String eMail, List<User> users) {
 
         if (eMail.equals("")) return false;
 
-        for (User user : users.getValue()
+        for (User user : users
         ) {
             if (user.getEMail().equals(eMail)) {
                 return true;
@@ -74,11 +74,11 @@ public class LoginViewModel extends ViewModel {
         return false;
     }
 
-    private boolean isPasswordValid(String eMail, String password, LiveData<List<User>> users) {
+    private boolean isPasswordValid(String eMail, String password, List<User> users) {
 
         if (eMail.equals("") || password.equals("")) return false;
 
-        for (User user : users.getValue()
+        for (User user : users
         ) {
             if (user.getEMail().equals(eMail) && user.getPassword().equals(password)) {
                 return true;

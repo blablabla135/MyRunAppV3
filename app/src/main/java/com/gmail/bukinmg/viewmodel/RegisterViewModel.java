@@ -3,6 +3,7 @@ package com.gmail.bukinmg.viewmodel;
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.gmail.bukinmg.model.Entity.User;
@@ -17,7 +18,6 @@ import javax.inject.Inject;
 public class RegisterViewModel extends ViewModel {
 
     private Repository repository;
-    private LiveData<List<User>> usersList;
 
     public MutableLiveData<String> errorEmail = new MutableLiveData<>();
     public MutableLiveData<String> errorPassword = new MutableLiveData<>();
@@ -31,7 +31,6 @@ public class RegisterViewModel extends ViewModel {
     @Inject
     public RegisterViewModel(Repository repository) {
         this.repository = repository;
-        usersList = repository.getAllUsers();
         eMail.postValue("");
         password.postValue("");
         confirmPassword.postValue("");
@@ -42,6 +41,8 @@ public class RegisterViewModel extends ViewModel {
         String userEmail = eMail.getValue();
         String userPassword = password.getValue();
         String userConfirmPassword = confirmPassword.getValue();
+
+        List<User> usersList = repository.getAllUsers();
 
         if (userEmail.equals("")) {
             errorEmail.setValue("Enter eMail");
@@ -75,11 +76,11 @@ public class RegisterViewModel extends ViewModel {
         }
     }
 
-    private boolean isEmailValid(String eMail, LiveData<List<User>> users) {
+    private boolean isEmailValid(String eMail, List<User> users) {
 
         if (eMail.equals("")) return false;
 
-        for (User user : users.getValue()
+        for (User user : users
         ) {
             if (user.getEMail().equals(eMail)) {
                 return false;

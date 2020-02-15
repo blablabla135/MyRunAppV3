@@ -25,5 +25,5 @@ public interface UserDao {
     void delete(User user);
 
     @Query("SELECT * FROM user_table")
-    LiveData<List<User>> getAllUsers();
+    List<User> getAllUsers();
 }
