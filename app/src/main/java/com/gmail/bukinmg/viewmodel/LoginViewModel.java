@@ -1,7 +1,6 @@
 package com.gmail.bukinmg.viewmodel;
 
 import androidx.databinding.BindingAdapter;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -15,22 +14,28 @@ import javax.inject.Inject;
 
 public class LoginViewModel extends ViewModel {
 
-    private Repository repository;
-
-
     public MutableLiveData<String> errorEmail = new MutableLiveData<>();
     public MutableLiveData<String> errorPassword = new MutableLiveData<>();
     public MutableLiveData<String> eMail = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
-
     public MutableLiveData<Boolean> mainTrigger = new MutableLiveData<>();
     public MutableLiveData<Boolean> registerTrigger = new MutableLiveData<>();
+    private Repository repository;
 
     @Inject
     public LoginViewModel(Repository repository) {
         this.repository = repository;
         eMail.postValue("");
         password.postValue("");
+    }
+
+    @BindingAdapter("errorText")
+    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
+        if (errorText != null) {
+            textInputLayout.setError(errorText);
+        } else {
+            textInputLayout.setError(null);
+        }
     }
 
     public void onLoginClicked() {
@@ -89,15 +94,6 @@ public class LoginViewModel extends ViewModel {
 
     public void onRegisterClicked() {
         registerTrigger.setValue(true);
-    }
-
-    @BindingAdapter("errorText")
-    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
-            if (errorText != null) {
-                textInputLayout.setError(errorText);
-            } else {
-                textInputLayout.setError(null);
-            }
     }
 
 }

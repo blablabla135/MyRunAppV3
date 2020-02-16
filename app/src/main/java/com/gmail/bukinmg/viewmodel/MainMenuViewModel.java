@@ -14,10 +14,9 @@ import javax.inject.Inject;
 
 public class MainMenuViewModel extends ViewModel {
 
+    public List<Day> dates;
     private Repository repository;
     private Calendar mainCalendar;
-
-    public List<Day> dates;
 
     @Inject
     public MainMenuViewModel(Repository repository) {
@@ -35,12 +34,12 @@ public class MainMenuViewModel extends ViewModel {
 
         datesCalendar.set(Calendar.DAY_OF_MONTH, 1);
         int firstDayOfMonth = datesCalendar.get(Calendar.DAY_OF_WEEK) - 1;
-        datesCalendar.add(Calendar.DAY_OF_MONTH, - (firstDayOfMonth - 1));
+        datesCalendar.add(Calendar.DAY_OF_MONTH, -(firstDayOfMonth - 1));
 
         for (int i = 0; i < 42; i++) {
             dates.add(new Day(datesCalendar.get(Calendar.DAY_OF_MONTH)
-                    ,datesCalendar.get(Calendar.MONTH)
-                    ,datesCalendar.get(Calendar.YEAR)));
+                    , datesCalendar.get(Calendar.MONTH)
+                    , datesCalendar.get(Calendar.YEAR)));
             datesCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
     }

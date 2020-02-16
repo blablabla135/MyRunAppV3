@@ -1,11 +1,11 @@
 package com.gmail.bukinmg.ui;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
-import android.os.Bundle;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityRegisterBinding;

@@ -1,12 +1,12 @@
 package com.gmail.bukinmg.ui;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityMainMenuBinding;
@@ -20,12 +20,11 @@ import dagger.android.AndroidInjection;
 
 public class MainMenuActivity extends AppCompatActivity {
 
+    @Inject
+    ViewModelFactory viewModelFactory;
     private RecyclerView recyclerView;
     private DatesAdapter datesAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    @Inject
-    ViewModelFactory viewModelFactory;
     private MainMenuViewModel mainMenuViewModel;
     private ActivityMainMenuBinding activityMainMenuBinding;
 

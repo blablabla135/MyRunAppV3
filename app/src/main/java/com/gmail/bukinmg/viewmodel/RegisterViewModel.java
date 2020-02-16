@@ -8,14 +8,11 @@ import com.gmail.bukinmg.model.Entity.User;
 import com.gmail.bukinmg.model.Repository;
 import com.google.android.material.textfield.TextInputLayout;
 
-
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class RegisterViewModel extends ViewModel {
-
-    private Repository repository;
 
     public MutableLiveData<String> errorEmail = new MutableLiveData<>();
     public MutableLiveData<String> errorPassword = new MutableLiveData<>();
@@ -23,8 +20,8 @@ public class RegisterViewModel extends ViewModel {
     public MutableLiveData<String> eMail = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
     public MutableLiveData<String> confirmPassword = new MutableLiveData<>();
-
     public MutableLiveData<Boolean> loginTrigger = new MutableLiveData<>();
+    private Repository repository;
 
     @Inject
     public RegisterViewModel(Repository repository) {
@@ -32,6 +29,15 @@ public class RegisterViewModel extends ViewModel {
         eMail.postValue("");
         password.postValue("");
         confirmPassword.postValue("");
+    }
+
+    @BindingAdapter("errorText")
+    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
+        if (errorText != null) {
+            textInputLayout.setError(errorText);
+        } else {
+            textInputLayout.setError(null);
+        }
     }
 
     public void onRegisterClicked() {
@@ -90,15 +96,6 @@ public class RegisterViewModel extends ViewModel {
     private boolean isPasswordValid(String password, String confirmPassword) {
         if (password.equals("")) return false;
         return password.equals(confirmPassword);
-    }
-
-    @BindingAdapter("errorText")
-    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
-        if (errorText != null) {
-            textInputLayout.setError(errorText);
-        } else {
-            textInputLayout.setError(null);
-        }
     }
 
 

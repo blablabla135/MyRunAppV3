@@ -1,7 +1,6 @@
 package com.gmail.bukinmg.model;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -31,13 +30,13 @@ public class Repository {
 
 
     @Inject
-        public Repository(UserDao userDao, EventDao eventDao, MainEventDao mainEventDao) {
-            this.userDao = userDao;
-            this.eventDao = eventDao;
-            this.mainEventDao = mainEventDao;
-            eventsList = eventDao.getAllEvents();
-            mainEventsList = mainEventDao.getAllMainEvents();
-        }
+    public Repository(UserDao userDao, EventDao eventDao, MainEventDao mainEventDao) {
+        this.userDao = userDao;
+        this.eventDao = eventDao;
+        this.mainEventDao = mainEventDao;
+        eventsList = eventDao.getAllEvents();
+        mainEventsList = mainEventDao.getAllMainEvents();
+    }
 
     public void insert(User user) {
         new InsertUserAsyncTask(userDao).execute(user);

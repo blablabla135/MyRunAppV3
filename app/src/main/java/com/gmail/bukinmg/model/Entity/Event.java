@@ -30,44 +30,44 @@ public class Event {
         return id;
     }
 
-    public int getDistance() {
-        return distance;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getDistance() {
+        return distance;
     }
 
     public void setDistance(int distance) {
         this.distance = distance;
     }
 
+    public int getYear() {
+        return year;
+    }
+
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
     }
 
     public void setMonth(int month) {
         this.month = month;
     }
 
+    public int getDay() {
+        return day;
+    }
+
     public void setDay(int day) {
         this.day = day;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public void setUserId(int userId) {

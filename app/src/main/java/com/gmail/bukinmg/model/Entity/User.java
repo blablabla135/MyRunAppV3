@@ -26,6 +26,10 @@ public class User {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getEMail() {
         return eMail;
     }
@@ -34,23 +38,19 @@ public class User {
         return password;
     }
 
-    public int getMainEventId() {
-        return mainEventId;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public int getMainEventId() {
+        return mainEventId;
+    }
+
     public void setMainEventId(int mainEventId) {
         this.mainEventId = mainEventId;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
     }
 }

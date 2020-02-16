@@ -6,13 +6,14 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-
 import dagger.android.support.AndroidSupportInjectionModule;
 
 @Component(modules = {MyDataBaseModule.class, ViewModelModule.class, ActivityModule.class, AndroidSupportInjectionModule.class})
 
 @Singleton
 public interface AppComponent {
+
+    void inject(AppController appController);
 
     @Component.Builder
     interface Builder {
@@ -22,6 +23,4 @@ public interface AppComponent {
 
         AppComponent build();
     }
-
-    void inject(AppController appController);
 }

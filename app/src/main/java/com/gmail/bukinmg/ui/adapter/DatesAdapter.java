@@ -12,7 +12,6 @@ import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.model.Entity.Day;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHolder> {
@@ -22,8 +21,6 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
     public DatesAdapter(List<Day> days) {
         this.days = days;
     }
-
-
 
 
     @NonNull
@@ -43,7 +40,7 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
         return days.size();
     }
 
-    public static class DatesViewHolder extends RecyclerView.ViewHolder{
+    public static class DatesViewHolder extends RecyclerView.ViewHolder {
 
         TextView day;
 

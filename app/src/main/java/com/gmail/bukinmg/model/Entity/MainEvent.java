@@ -1,6 +1,5 @@
 package com.gmail.bukinmg.model.Entity;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -29,36 +28,36 @@ public class MainEvent {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public int getYear() {
+        return year;
+    }
+
     public void setYear(int year) {
         this.year = year;
     }
 
+    public int getMonth() {
+        return month;
+    }
+
     public void setMonth(int month) {
         this.month = month;
+    }
+
+    public int getDay() {
+        return day;
     }
 
     public void setDay(int day) {

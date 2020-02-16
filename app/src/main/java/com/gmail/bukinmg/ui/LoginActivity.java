@@ -1,17 +1,16 @@
 package com.gmail.bukinmg.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityLoginBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
 import com.gmail.bukinmg.viewmodel.LoginViewModel;
-
-import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
@@ -23,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     ViewModelFactory viewModelFactory;
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding activityLoginBinding;
-
 
 
     @Override
