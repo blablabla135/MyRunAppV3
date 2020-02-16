@@ -22,9 +22,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Inject
     ViewModelFactory viewModelFactory;
-    private RecyclerView recyclerView;
-    private DatesAdapter datesAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private MainMenuViewModel mainMenuViewModel;
     private ActivityMainMenuBinding activityMainMenuBinding;
 
@@ -40,13 +37,8 @@ public class MainMenuActivity extends AppCompatActivity {
         activityMainMenuBinding.setMainMenuViewModel(mainMenuViewModel);
         activityMainMenuBinding.setLifecycleOwner(this);
 
-        recyclerView = findViewById(R.id.recycler_view);
-
-        layoutManager = new GridLayoutManager(this, 7);
-        recyclerView.setLayoutManager(layoutManager);
-
-        datesAdapter = new DatesAdapter(mainMenuViewModel.dates);
-        recyclerView.setAdapter(datesAdapter);
+        DatesAdapter datesAdapter = new DatesAdapter(mainMenuViewModel.dates);
+        activityMainMenuBinding.setDatesAdapter(datesAdapter);
 
 
     }

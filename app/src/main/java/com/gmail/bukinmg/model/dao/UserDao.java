@@ -1,4 +1,4 @@
-package com.gmail.bukinmg.model.Dao;
+package com.gmail.bukinmg.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.gmail.bukinmg.model.Entity.User;
+import com.gmail.bukinmg.model.entity.User;
 
 import java.util.List;
 

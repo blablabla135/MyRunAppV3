@@ -5,9 +5,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 
-import com.gmail.bukinmg.model.Dao.EventDao;
-import com.gmail.bukinmg.model.Dao.MainEventDao;
-import com.gmail.bukinmg.model.Dao.UserDao;
+import com.gmail.bukinmg.model.dao.EventDao;
+import com.gmail.bukinmg.model.dao.MainEventDao;
+import com.gmail.bukinmg.model.dao.UserDao;
 import com.gmail.bukinmg.model.MyDataBase;
 import com.gmail.bukinmg.model.Repository;
 

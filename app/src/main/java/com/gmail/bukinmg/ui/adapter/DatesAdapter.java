@@ -1,20 +1,22 @@
 package com.gmail.bukinmg.ui.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.R;
-import com.gmail.bukinmg.model.Entity.Day;
+import com.gmail.bukinmg.databinding.ViewItemBinding;
+import com.gmail.bukinmg.model.entity.Day;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHolder> {
+
+
 
     private List<Day> days = new ArrayList<>();
 
@@ -22,17 +24,19 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
         this.days = days;
     }
 
-
     @NonNull
     @Override
     public DatesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item, parent, false);
-        return new DatesViewHolder(itemView);
+        ViewItemBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()),
+                R.layout.view_item, parent, false);
+        return new DatesViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DatesViewHolder holder, int position) {
-        holder.day.setText(String.valueOf(days.get(position).getDay()));
+        Day day = days.get(position);
+        holder.binding.setDays(day);
     }
 
     @Override
@@ -42,11 +46,17 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
 
     public static class DatesViewHolder extends RecyclerView.ViewHolder {
 
-        TextView day;
+        private ViewItemBinding binding;
 
-        public DatesViewHolder(@NonNull View itemView) {
-            super(itemView);
-            day = itemView.findViewById(R.id.day);
+        public DatesViewHolder(ViewItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
+
+        public void bind(Day day) {
+            binding.setDays(day);
+            binding.executePendingBindings();
+        }
+
     }
 }

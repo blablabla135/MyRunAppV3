@@ -1,4 +1,4 @@
-package com.gmail.bukinmg.model.Entity;
+package com.gmail.bukinmg.model.entity;
 
 public class Day {
     private int day;

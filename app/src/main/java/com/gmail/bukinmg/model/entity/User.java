@@ -1,4 +1,4 @@
-package com.gmail.bukinmg.model.Entity;
+package com.gmail.bukinmg.model.entity;
 
 
 import androidx.room.Entity;

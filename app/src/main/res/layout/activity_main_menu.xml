@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="datesAdapter"
+            type="com.gmail.bukinmg.ui.adapter.DatesAdapter" />
+
+        <variable
             name="mainMenuViewModel"
             type="com.gmail.bukinmg.viewmodel.MainMenuViewModel" />
     </data>
@@ -166,9 +170,12 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:adapter="@{datesAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/days_of_week" />
+            app:layout_constraintTop_toBottomOf="@id/days_of_week"
+            app:spanCount="7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

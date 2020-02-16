@@ -2,7 +2,7 @@ package com.gmail.bukinmg.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
-import com.gmail.bukinmg.model.Entity.Day;
+import com.gmail.bukinmg.model.entity.Day;
 import com.gmail.bukinmg.model.Repository;
 
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ public class MainMenuViewModel extends ViewModel {
         dates = new ArrayList<>();
         initializeDates();
     }
-
 
     public void initializeDates() {
         dates.clear();
