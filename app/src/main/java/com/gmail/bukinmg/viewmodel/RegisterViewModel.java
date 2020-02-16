@@ -1,9 +1,7 @@
 package com.gmail.bukinmg.viewmodel;
 
 import androidx.databinding.BindingAdapter;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.gmail.bukinmg.model.Entity.User;
