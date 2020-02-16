@@ -5,14 +5,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityMainMenuBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
 import com.gmail.bukinmg.ui.adapter.DatesAdapter;
 import com.gmail.bukinmg.viewmodel.MainMenuViewModel;
+
 
 import javax.inject.Inject;
 
@@ -37,9 +36,9 @@ public class MainMenuActivity extends AppCompatActivity {
         activityMainMenuBinding.setMainMenuViewModel(mainMenuViewModel);
         activityMainMenuBinding.setLifecycleOwner(this);
 
-        DatesAdapter datesAdapter = new DatesAdapter(mainMenuViewModel.dates);
-        activityMainMenuBinding.setDatesAdapter(datesAdapter);
-
-
+        mainMenuViewModel.getDatesList().observe(this, days -> {
+            DatesAdapter datesAdapter = new DatesAdapter(mainMenuViewModel.getDatesList().getValue());
+            activityMainMenuBinding.setDatesAdapter(datesAdapter);
+        });
     }
 }

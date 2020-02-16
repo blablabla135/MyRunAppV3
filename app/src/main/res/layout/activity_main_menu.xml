@@ -37,14 +37,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/ic_chevron_left" />
+                    android:background="@drawable/ic_chevron_left"
+                    android:onClick="@{()-> mainMenuViewModel.previousMonth()}"/>
 
 
                 <TextView
                     android:id="@+id/month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="January"
+                    android:text="@{}"
                     android:textColor="@color/colorWhite"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -53,7 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/ic_chevron_right" />
+                    android:background="@drawable/ic_chevron_right"
+                    android:onClick="@{()-> mainMenuViewModel.nextMonth()}"/>
             </LinearLayout>
 
 

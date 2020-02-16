@@ -1,5 +1,6 @@
 package com.gmail.bukinmg.viewmodel;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.gmail.bukinmg.model.entity.Day;
@@ -14,7 +15,7 @@ import javax.inject.Inject;
 
 public class MainMenuViewModel extends ViewModel {
 
-    public List<Day> dates;
+    private MutableLiveData<List<Day>> datesList;
     private Repository repository;
     private Calendar mainCalendar;
 
@@ -23,12 +24,12 @@ public class MainMenuViewModel extends ViewModel {
         this.repository = repository;
         this.mainCalendar = Calendar.getInstance(Locale.ENGLISH);
         mainCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-        dates = new ArrayList<>();
+        datesList = new MutableLiveData<>();
         initializeDates();
     }
 
     public void initializeDates() {
-        dates.clear();
+        List<Day> dates = new ArrayList<>();
         Calendar datesCalendar = (Calendar) mainCalendar.clone();
 
         datesCalendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -41,6 +42,21 @@ public class MainMenuViewModel extends ViewModel {
                     , datesCalendar.get(Calendar.YEAR)));
             datesCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
+
+        datesList.setValue(dates);
     }
 
+    public void nextMonth(){
+        mainCalendar.add(Calendar.MONTH, 1);
+        initializeDates();
+    }
+
+    public void previousMonth(){
+        mainCalendar.add(Calendar.MONTH, -1);
+        initializeDates();
+    }
+
+    public MutableLiveData<List<Day>> getDatesList() {
+        return datesList;
+    }
 }

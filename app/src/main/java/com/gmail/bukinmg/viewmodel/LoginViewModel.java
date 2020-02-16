@@ -1,12 +1,10 @@
 package com.gmail.bukinmg.viewmodel;
 
-import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.gmail.bukinmg.model.entity.User;
 import com.gmail.bukinmg.model.Repository;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
