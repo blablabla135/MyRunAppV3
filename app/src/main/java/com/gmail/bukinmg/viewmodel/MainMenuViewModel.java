@@ -16,6 +16,7 @@ import javax.inject.Inject;
 public class MainMenuViewModel extends ViewModel {
 
     private MutableLiveData<List<Day>> datesList;
+    public MutableLiveData<String> month;
     private Repository repository;
     private Calendar mainCalendar;
 
@@ -25,10 +26,13 @@ public class MainMenuViewModel extends ViewModel {
         this.mainCalendar = Calendar.getInstance(Locale.ENGLISH);
         mainCalendar.setFirstDayOfWeek(Calendar.MONDAY);
         datesList = new MutableLiveData<>();
+        month = new MutableLiveData<>();
         initializeDates();
     }
 
     public void initializeDates() {
+        month.setValue(mainCalendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH));
+
         List<Day> dates = new ArrayList<>();
         Calendar datesCalendar = (Calendar) mainCalendar.clone();
 
