@@ -6,20 +6,15 @@ import android.app.Application;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
 import dagger.android.HasAndroidInjector;
 
 public class AppController extends Application implements HasAndroidInjector {
 
+
     @Inject
-    DispatchingAndroidInjector<Activity> activityInjector;
-
-    @Override
-    public DispatchingAndroidInjector<Activity> activityInjector() {
-        return activityInjector;
-    }
-
+    DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -30,4 +25,10 @@ public class AppController extends Application implements HasAndroidInjector {
                 .inject(this);
     }
 
+
+
+    @Override
+    public AndroidInjector<Object>androidInjector() {
+        return dispatchingAndroidInjector;
+    }
 }
