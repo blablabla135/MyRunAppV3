@@ -14,13 +14,19 @@ import com.gmail.bukinmg.model.entity.Day;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHolder> {
 
 
 
     private List<Day> days = new ArrayList<>();
 
-    public DatesAdapter(List<Day> days) {
+    @Inject
+    public DatesAdapter() {
+    }
+
+    public void setDays(List<Day> days) {
         this.days = days;
     }
 

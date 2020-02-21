@@ -21,6 +21,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    DatesAdapter datesAdapter;
     private MainMenuViewModel mainMenuViewModel;
     private ActivityMainMenuBinding activityMainMenuBinding;
 
@@ -37,7 +39,7 @@ public class MainMenuActivity extends AppCompatActivity {
         activityMainMenuBinding.setLifecycleOwner(this);
 
         mainMenuViewModel.getDatesList().observe(this, days -> {
-            DatesAdapter datesAdapter = new DatesAdapter(mainMenuViewModel.getDatesList().getValue());
+            datesAdapter.setDays(mainMenuViewModel.getDatesList().getValue());
             activityMainMenuBinding.setDatesAdapter(datesAdapter);
         });
     }
