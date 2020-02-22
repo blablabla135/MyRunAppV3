@@ -1,6 +1,7 @@
 package com.gmail.bukinmg.ui.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -19,8 +20,8 @@ import javax.inject.Inject;
 public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHolder> {
 
 
-
     private List<Day> days = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
 
     @Inject
     public DatesAdapter() {
@@ -28,6 +29,10 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
 
     public void setDays(List<Day> days) {
         this.days = days;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -59,10 +64,18 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
             this.binding = binding;
         }
 
-        public void bind(Day day) {
+        public void bind(Day day, OnItemClickListener onItemClickListener) {
             binding.setDays(day);
             binding.executePendingBindings();
+            itemView.setOnClickListener(view -> {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(day);
+                }
+            });
         }
+    }
 
+    public interface OnItemClickListener {
+        void onItemClick(Day day);
     }
 }
