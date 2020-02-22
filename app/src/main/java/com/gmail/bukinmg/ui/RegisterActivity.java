@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         registerViewModel.loginTrigger.observe(this, aBoolean -> {
-            if (aBoolean) {
+            if (registerViewModel.loginTrigger != null) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }

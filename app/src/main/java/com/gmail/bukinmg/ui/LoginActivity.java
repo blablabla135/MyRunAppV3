@@ -37,14 +37,14 @@ public class LoginActivity extends AppCompatActivity {
         activityLoginBinding.setLifecycleOwner(this);
 
         loginViewModel.mainTrigger.observe(this, aBoolean -> {
-            if (aBoolean) {
+            if (loginViewModel.mainTrigger != null) {
                 Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
 
         loginViewModel.registerTrigger.observe(this, aBoolean -> {
-            if (aBoolean) {
+            if (loginViewModel.registerTrigger != null) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }

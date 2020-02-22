@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.gmail.bukinmg.model.entity.User;
 import com.gmail.bukinmg.model.Repository;
+import com.gmail.bukinmg.utility.EventWrapper;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<String> errorPassword = new MutableLiveData<>();
     public MutableLiveData<String> eMail = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
-    public MutableLiveData<Boolean> mainTrigger = new MutableLiveData<>();
-    public MutableLiveData<Boolean> registerTrigger = new MutableLiveData<>();
+    public MutableLiveData<EventWrapper<Boolean>> mainTrigger = new MutableLiveData<>();
+    public MutableLiveData<EventWrapper<Boolean>> registerTrigger = new MutableLiveData<>();
     private Repository repository;
 
     @Inject
@@ -51,7 +52,7 @@ public class LoginViewModel extends ViewModel {
         }
 
         if (isPasswordValid(userEmail, userPassword, usersList) && isEmailValid(userEmail, usersList)) {
-            mainTrigger.setValue(true);
+            mainTrigger.setValue(new EventWrapper<>(true));
         }
     }
 
@@ -82,7 +83,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void onRegisterClicked() {
-        registerTrigger.setValue(true);
+        registerTrigger.setValue(new EventWrapper<>(true));
     }
 
 }
