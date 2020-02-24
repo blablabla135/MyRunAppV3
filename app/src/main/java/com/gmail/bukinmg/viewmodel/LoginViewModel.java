@@ -24,8 +24,8 @@ public class LoginViewModel extends ViewModel {
     @Inject
     public LoginViewModel(Repository repository) {
         this.repository = repository;
-        eMail.postValue("");
-        password.postValue("");
+        eMail.setValue("");
+        password.setValue("");
     }
 
     public void onLoginClicked() {

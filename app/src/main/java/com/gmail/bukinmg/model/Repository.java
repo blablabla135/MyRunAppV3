@@ -42,6 +42,10 @@ public class Repository {
         new InsertUserAsyncTask(userDao).execute(user);
     }
 
+    public void insert(Event event) {
+        new InsertEventAsyncTask(eventDao).execute(event);
+    }
+
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try {
@@ -64,6 +68,20 @@ public class Repository {
         @Override
         protected Void doInBackground(User... users) {
             userDao.insert(users[0]);
+            return null;
+        }
+    }
+
+    private static class InsertEventAsyncTask extends AsyncTask<Event, Void, Void> {
+        private EventDao eventDao;
+
+        private InsertEventAsyncTask(EventDao eventDao) {
+            this.eventDao = eventDao;
+        }
+
+        @Override
+        protected Void doInBackground(Event... events) {
+            eventDao.insert(events[0]);
             return null;
         }
     }

@@ -1,7 +1,6 @@
 package com.gmail.bukinmg.ui.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -47,7 +46,7 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
     @Override
     public void onBindViewHolder(@NonNull DatesViewHolder holder, int position) {
         Day day = days.get(position);
-        holder.binding.setDays(day);
+        holder.bind(day, onItemClickListener);
     }
 
     @Override

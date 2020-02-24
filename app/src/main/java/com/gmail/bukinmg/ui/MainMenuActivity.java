@@ -1,7 +1,7 @@
 package com.gmail.bukinmg.ui;
 
+import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityMainMenuBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
-import com.gmail.bukinmg.model.entity.Day;
 import com.gmail.bukinmg.ui.adapter.DatesAdapter;
 import com.gmail.bukinmg.viewmodel.MainMenuViewModel;
 
@@ -46,7 +45,9 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         datesAdapter.setOnItemClickListener(day -> {
-
+            mainMenuViewModel.setDay(day);
+            MenuDialogFragment dialogFragment = new MenuDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "MenuDialogFragment");
         });
     }
 }

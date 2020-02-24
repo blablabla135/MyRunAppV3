@@ -3,8 +3,9 @@ package com.gmail.bukinmg.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.gmail.bukinmg.model.entity.Day;
 import com.gmail.bukinmg.model.Repository;
+import com.gmail.bukinmg.model.entity.Day;
+import com.gmail.bukinmg.model.entity.Event;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,18 +16,20 @@ import javax.inject.Inject;
 
 public class MainMenuViewModel extends ViewModel {
 
-    private MutableLiveData<List<Day>> datesList;
-    public MutableLiveData<String> month;
+    private MutableLiveData<List<Day>> datesList = new MutableLiveData<>();
+    public MutableLiveData<String> month = new MutableLiveData<>();
+    public MutableLiveData<String> distance = new MutableLiveData<>();
+    public MutableLiveData<String> distanceError = new MutableLiveData<>();
     private Repository repository;
     private Calendar mainCalendar;
+    private Day day;
 
     @Inject
     public MainMenuViewModel(Repository repository) {
         this.repository = repository;
         this.mainCalendar = Calendar.getInstance(Locale.ENGLISH);
         mainCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-        datesList = new MutableLiveData<>();
-        month = new MutableLiveData<>();
+        distance.setValue("");
         initializeDates();
     }
 
@@ -50,17 +53,34 @@ public class MainMenuViewModel extends ViewModel {
         datesList.setValue(dates);
     }
 
-    public void nextMonth(){
+    public void nextMonth() {
         mainCalendar.add(Calendar.MONTH, 1);
         initializeDates();
     }
 
-    public void previousMonth(){
+    public void previousMonth() {
         mainCalendar.add(Calendar.MONTH, -1);
         initializeDates();
     }
 
+    public void addEvent() {
+            repository.insert(new Event(Integer.parseInt(distance.getValue()), day.getYear(), day.getMonth(), day.getDay(), 1));
+    }
+
+    public void showError() {
+            distanceError.setValue("Enter distance");
+    }
+
+
     public MutableLiveData<List<Day>> getDatesList() {
         return datesList;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    public Day getDay() {
+        return day;
     }
 }

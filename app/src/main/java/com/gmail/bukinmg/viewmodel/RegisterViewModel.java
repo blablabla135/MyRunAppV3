@@ -27,9 +27,9 @@ public class RegisterViewModel extends ViewModel {
     @Inject
     public RegisterViewModel(Repository repository) {
         this.repository = repository;
-        eMail.postValue("");
-        password.postValue("");
-        confirmPassword.postValue("");
+        eMail.setValue("");
+        password.setValue("");
+        confirmPassword.setValue("");
     }
 
     @BindingAdapter("errorText")
