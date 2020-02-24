@@ -7,11 +7,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -41,14 +43,21 @@ public class MenuDialogFragment extends DialogFragment {
         super.onAttach(context);
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        dialogFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_fragment, container, false);
+        mainMenuViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MainMenuViewModel.class);
+        dialogFragmentBinding.setMainMenuViewModel(mainMenuViewModel);
+        dialogFragmentBinding.setLifecycleOwner(this);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        dialogFragmentBinding = DialogFragmentBinding.inflate(LayoutInflater.from(getContext()));
-        mainMenuViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MainMenuViewModel.class);
-        dialogFragmentBinding.setMainMenuViewModel(mainMenuViewModel);
 
-         return new MaterialAlertDialogBuilder(getActivity())
+        return new MaterialAlertDialogBuilder(getActivity())
                 .setView(R.layout.dialog_fragment)
                 .setNegativeButton("CANCEL", null)
                 .setPositiveButton("ADD", null)
@@ -75,4 +84,5 @@ public class MenuDialogFragment extends DialogFragment {
 
         }
     }
+
 }

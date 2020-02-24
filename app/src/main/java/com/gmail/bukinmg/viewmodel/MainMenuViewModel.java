@@ -64,13 +64,12 @@ public class MainMenuViewModel extends ViewModel {
     }
 
     public void addEvent() {
-            repository.insert(new Event(Integer.parseInt(distance.getValue()), day.getYear(), day.getMonth(), day.getDay(), 1));
+        repository.insert(new Event(Integer.parseInt(distance.getValue()), day.getYear(), day.getMonth(), day.getDay(), 1));
     }
 
     public void showError() {
-            distanceError.setValue("Enter distance");
+        distanceError.setValue("Enter distance");
     }
-
 
     public MutableLiveData<List<Day>> getDatesList() {
         return datesList;
