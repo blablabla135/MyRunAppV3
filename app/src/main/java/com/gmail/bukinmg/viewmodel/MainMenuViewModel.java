@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.gmail.bukinmg.model.Repository;
 import com.gmail.bukinmg.model.entity.Day;
 import com.gmail.bukinmg.model.entity.Event;
+import com.gmail.bukinmg.utility.EventWrapper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +24,8 @@ public class MainMenuViewModel extends ViewModel {
     private Repository repository;
     private Calendar mainCalendar;
     private Day day;
+    public MutableLiveData<EventWrapper<Boolean>> addTrigger = new MutableLiveData<>();
+    public MutableLiveData<EventWrapper<Boolean>> cancelTrigger = new MutableLiveData<>();
 
     @Inject
     public MainMenuViewModel(Repository repository) {
@@ -63,13 +66,19 @@ public class MainMenuViewModel extends ViewModel {
         initializeDates();
     }
 
-    public void addEvent() {
-        repository.insert(new Event(Integer.parseInt(distance.getValue()), day.getYear(), day.getMonth(), day.getDay(), 1));
+    public void onAddClick() {
+        if (distance.getValue().equals("")) {
+            distanceError.setValue("Enter distance");
+        } else {
+            distanceError.setValue(null);
+            addTrigger.setValue(new EventWrapper<>(true));
+        }
     }
 
-    public void showError() {
-        distanceError.setValue("Enter distance");
+    public void onCancelClick() {
+        cancelTrigger.setValue(new EventWrapper<>(true));
     }
+
 
     public MutableLiveData<List<Day>> getDatesList() {
         return datesList;

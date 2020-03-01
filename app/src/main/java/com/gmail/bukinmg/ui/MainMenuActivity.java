@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityMainMenuBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
 import com.gmail.bukinmg.ui.adapter.DatesAdapter;
+import com.gmail.bukinmg.utility.EventWrapper;
 import com.gmail.bukinmg.viewmodel.MainMenuViewModel;
 
 
@@ -45,9 +47,10 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         datesAdapter.setOnItemClickListener(day -> {
+
             mainMenuViewModel.setDay(day);
-            MenuDialogFragment dialogFragment = new MenuDialogFragment();
-            dialogFragment.show(getSupportFragmentManager(), "MenuDialogFragment");
         });
+
+
     }
 }
