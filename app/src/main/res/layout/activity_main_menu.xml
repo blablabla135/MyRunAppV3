@@ -19,6 +19,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainMenuActivity">
 
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"

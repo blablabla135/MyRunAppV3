@@ -57,21 +57,20 @@ public class MenuDialogFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mainMenuViewModel.addTrigger.observe(this, booleanEventWrapper -> {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mainMenuViewModel.addTrigger.observe(getViewLifecycleOwner(), booleanEventWrapper -> {
             if (mainMenuViewModel.addTrigger != null) {
                 getActivity().onBackPressed();
             }
-
         });
 
-        mainMenuViewModel.cancelTrigger.observe(this, booleanEventWrapper -> {
+        mainMenuViewModel.cancelTrigger.observe(getViewLifecycleOwner(), booleanEventWrapper -> {
             if (mainMenuViewModel.cancelTrigger != null) {
                 getActivity().onBackPressed();
             }
 
         });
+
     }
 }

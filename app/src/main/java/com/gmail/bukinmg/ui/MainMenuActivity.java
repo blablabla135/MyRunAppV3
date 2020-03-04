@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -47,6 +49,14 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         datesAdapter.setOnItemClickListener(day -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            MenuDialogFragment menuDialogFragment = new MenuDialogFragment();
+            fragmentTransaction.add(R.id.fragment_container, menuDialogFragment);
+            fragmentTransaction.commit();
+
+
+
 
             mainMenuViewModel.setDay(day);
         });
