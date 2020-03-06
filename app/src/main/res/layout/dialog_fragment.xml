@@ -12,7 +12,7 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".ui.MenuDialogFragment">
@@ -43,6 +43,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
             android:gravity="end">
 
             <com.google.android.material.button.MaterialButton

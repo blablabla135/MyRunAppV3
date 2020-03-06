@@ -67,16 +67,21 @@ public class MainMenuViewModel extends ViewModel {
     }
 
     public void onAddClick() {
-        if (distance.getValue().equals("")) {
+        String userDistance = distance.getValue();
+        if (userDistance.equals("")) {
             distanceError.setValue("Enter distance");
         } else {
+            repository.insert(new Event(Integer.parseInt(userDistance), day.getYear(), day.getMonth(), day.getDay(), 1));
+            distance.setValue("");
             distanceError.setValue(null);
             addTrigger.setValue(new EventWrapper<>(true));
         }
+
     }
 
     public void onCancelClick() {
         cancelTrigger.setValue(new EventWrapper<>(true));
+        distanceError.setValue(null);
     }
 
 

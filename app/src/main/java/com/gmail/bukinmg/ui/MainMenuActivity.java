@@ -30,6 +30,7 @@ public class MainMenuActivity extends AppCompatActivity {
     DatesAdapter datesAdapter;
     private MainMenuViewModel mainMenuViewModel;
     private ActivityMainMenuBinding activityMainMenuBinding;
+    private MenuDialogFragment dialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +50,27 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         datesAdapter.setOnItemClickListener(day -> {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            MenuDialogFragment menuDialogFragment = new MenuDialogFragment();
-            fragmentTransaction.add(R.id.fragment_container, menuDialogFragment);
-            fragmentTransaction.commit();
-
-
-
-
             mainMenuViewModel.setDay(day);
+            dialogFragment = new MenuDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "MenuDialogFragment");
+        });
+
+        mainMenuViewModel.addTrigger.observe(this, new Observer<EventWrapper<Boolean>>() {
+            @Override
+            public void onChanged(EventWrapper<Boolean> booleanEventWrapper) {
+                if (mainMenuViewModel.addTrigger != null) {
+                    dialogFragment.dismiss();
+                }
+            }
+        });
+
+        mainMenuViewModel.cancelTrigger.observe(this, new Observer<EventWrapper<Boolean>>() {
+            @Override
+            public void onChanged(EventWrapper<Boolean> booleanEventWrapper) {
+                if (mainMenuViewModel.cancelTrigger != null) {
+                    dialogFragment.dismiss();
+                }
+            }
         });
 
 
