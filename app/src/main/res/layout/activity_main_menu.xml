@@ -20,8 +20,9 @@
         tools:context=".ui.MainMenuActivity">
 
 
-        <com.google.android.material.appbar.AppBarLayout
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/app_bar"
+            android:background="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -61,7 +62,7 @@
             </LinearLayout>
 
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <LinearLayout
             android:id="@+id/days_of_week"
