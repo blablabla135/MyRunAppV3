@@ -1,18 +1,17 @@
-package com.gmail.bukinmg.ui;
+package com.gmail.bukinmg.ui.activity;
 
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityMainMenuBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
+import com.gmail.bukinmg.ui.fragment.MenuDialogFragment;
 import com.gmail.bukinmg.ui.adapter.DatesAdapter;
 import com.gmail.bukinmg.utility.EventWrapper;
 import com.gmail.bukinmg.viewmodel.MainMenuViewModel;
@@ -55,21 +54,22 @@ public class MainMenuActivity extends AppCompatActivity {
             dialogFragment.show(getSupportFragmentManager(), "MenuDialogFragment");
         });
 
-        mainMenuViewModel.addTrigger.observe(this, new Observer<EventWrapper<Boolean>>() {
-            @Override
-            public void onChanged(EventWrapper<Boolean> booleanEventWrapper) {
-                if (mainMenuViewModel.addTrigger != null) {
-                    dialogFragment.dismiss();
-                }
+        mainMenuViewModel.addTrigger.observe(this, booleanEventWrapper -> {
+            if (mainMenuViewModel.addTrigger != null) {
+                dialogFragment.dismiss();
             }
         });
 
-        mainMenuViewModel.cancelTrigger.observe(this, new Observer<EventWrapper<Boolean>>() {
-            @Override
-            public void onChanged(EventWrapper<Boolean> booleanEventWrapper) {
-                if (mainMenuViewModel.cancelTrigger != null) {
-                    dialogFragment.dismiss();
-                }
+        mainMenuViewModel.cancelTrigger.observe(this, booleanEventWrapper -> {
+            if (mainMenuViewModel.cancelTrigger != null) {
+                dialogFragment.dismiss();
+            }
+        });
+
+        mainMenuViewModel.listTrigger.observe(this, booleanEventWrapper -> {
+            if (mainMenuViewModel.listTrigger != null) {
+                Intent intent = new Intent(MainMenuActivity.this, EventsActivity.class);
+                startActivity(intent);
             }
         });
 

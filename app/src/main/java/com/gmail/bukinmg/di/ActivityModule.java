@@ -1,8 +1,9 @@
 package com.gmail.bukinmg.di;
 
-import com.gmail.bukinmg.ui.LoginActivity;
-import com.gmail.bukinmg.ui.MainMenuActivity;
-import com.gmail.bukinmg.ui.RegisterActivity;
+import com.gmail.bukinmg.ui.activity.EventsActivity;
+import com.gmail.bukinmg.ui.activity.LoginActivity;
+import com.gmail.bukinmg.ui.activity.MainMenuActivity;
+import com.gmail.bukinmg.ui.activity.RegisterActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -18,4 +19,7 @@ public abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract MainMenuActivity contributeMainMenuActivity();
+
+    @ContributesAndroidInjector
+    abstract EventsActivity contributeEventsActivity();
 }

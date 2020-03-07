@@ -1,4 +1,4 @@
-package com.gmail.bukinmg.ui;
+package com.gmail.bukinmg.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

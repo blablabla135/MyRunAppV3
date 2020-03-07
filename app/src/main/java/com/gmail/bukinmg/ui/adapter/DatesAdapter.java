@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.R;
-import com.gmail.bukinmg.databinding.ViewItemBinding;
+import com.gmail.bukinmg.databinding.DayViewItemBinding;
 import com.gmail.bukinmg.model.entity.Day;
 
 import java.util.ArrayList;
@@ -37,9 +37,9 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
     @NonNull
     @Override
     public DatesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewItemBinding binding = DataBindingUtil.inflate(
+        DayViewItemBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.view_item, parent, false);
+                R.layout.day_view_item, parent, false);
         return new DatesViewHolder(binding);
     }
 
@@ -56,9 +56,9 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
 
     public static class DatesViewHolder extends RecyclerView.ViewHolder {
 
-        private ViewItemBinding binding;
+        private DayViewItemBinding binding;
 
-        public DatesViewHolder(ViewItemBinding binding) {
+        public DatesViewHolder(DayViewItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -77,4 +77,5 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
     public interface OnItemClickListener {
         void onItemClick(Day day);
     }
+
 }

@@ -3,6 +3,8 @@ package com.gmail.bukinmg.model.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.DateFormatSymbols;
+
 @Entity(tableName = "event_table")
 public class Event {
     @PrimaryKey(autoGenerate = true)
@@ -72,5 +74,9 @@ public class Event {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getStringMonth() {
+        return new DateFormatSymbols().getMonths()[month-1].toLowerCase();
     }
 }

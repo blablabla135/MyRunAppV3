@@ -3,6 +3,7 @@ package com.gmail.bukinmg.model;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.gmail.bukinmg.model.dao.EventDao;
 import com.gmail.bukinmg.model.dao.MainEventDao;
@@ -25,17 +26,12 @@ public class Repository {
     private EventDao eventDao;
     private MainEventDao mainEventDao;
 
-    private LiveData<List<Event>> eventsList;
-    private LiveData<List<MainEvent>> mainEventsList;
-
 
     @Inject
     public Repository(UserDao userDao, EventDao eventDao, MainEventDao mainEventDao) {
         this.userDao = userDao;
         this.eventDao = eventDao;
         this.mainEventDao = mainEventDao;
-        eventsList = eventDao.getAllEvents();
-        mainEventsList = mainEventDao.getAllMainEvents();
     }
 
     public void insert(User user) {
@@ -56,6 +52,18 @@ public class Repository {
             e.printStackTrace();
         }
         return users;
+    }
+
+    public LiveData<List<Event>> getAllEvents() {
+        LiveData<List<Event>> events = new MutableLiveData<>();
+        try {
+            events = new GetAllEventsAsyncTask(eventDao).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return events;
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
@@ -96,6 +104,19 @@ public class Repository {
         @Override
         protected List<User> doInBackground(Void... voids) {
             return userDao.getAllUsers();
+        }
+    }
+
+    private static class GetAllEventsAsyncTask extends AsyncTask<Void, Void, LiveData<List<Event>>> {
+        private EventDao eventDao;
+
+        private GetAllEventsAsyncTask(EventDao eventDao) {
+            this.eventDao = eventDao;
+        }
+
+        @Override
+        protected LiveData<List<Event>> doInBackground(Void... voids) {
+            return eventDao.getAllEvents();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.gmail.bukinmg.ui;
+package com.gmail.bukinmg.ui.fragment;
 
 
 import android.app.Dialog;

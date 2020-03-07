@@ -87,7 +87,7 @@ public class MainMenuViewModel extends ViewModel {
     }
 
     public void onListClick() {
-
+        listTrigger.setValue(new EventWrapper<>(true));
     }
 
     public void onMenuClick() {

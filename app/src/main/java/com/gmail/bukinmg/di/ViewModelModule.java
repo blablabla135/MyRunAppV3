@@ -3,6 +3,7 @@ package com.gmail.bukinmg.di;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.gmail.bukinmg.viewmodel.EventsViewModel;
 import com.gmail.bukinmg.viewmodel.LoginViewModel;
 import com.gmail.bukinmg.viewmodel.MainMenuViewModel;
 import com.gmail.bukinmg.viewmodel.RegisterViewModel;
@@ -30,5 +31,10 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainMenuViewModel.class)
     protected abstract ViewModel mainMenuViewModel(MainMenuViewModel mainMenuViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EventsViewModel.class)
+    protected abstract ViewModel eventsViewModel(EventsViewModel eventsViewModel);
 
 }

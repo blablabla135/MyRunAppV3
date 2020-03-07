@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.RegisterActivity">
+        tools:context=".ui.activity.RegisterActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_text_email"

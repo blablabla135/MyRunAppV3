@@ -11,6 +11,7 @@
     <string name="list_of_races">list of races</string>
     <string name="add">add</string>
     <string name="cancel">cancel</string>
+    <string name="events_list">Events list</string>
 
     <string name="sun">Sun</string>
     <string name="mon">Mon</string>
@@ -19,7 +20,6 @@
     <string name="thu">Thu</string>
     <string name="fri">Fri</string>
     <string name="sat">Sat</string>
-
 
 
 </resources>
