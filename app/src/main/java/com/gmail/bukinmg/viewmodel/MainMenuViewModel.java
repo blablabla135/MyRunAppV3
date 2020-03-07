@@ -26,6 +26,8 @@ public class MainMenuViewModel extends ViewModel {
     private Day day;
     public MutableLiveData<EventWrapper<Boolean>> addTrigger = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> cancelTrigger = new MutableLiveData<>();
+    public MutableLiveData<EventWrapper<Boolean>> listTrigger = new MutableLiveData<>();
+    public MutableLiveData<EventWrapper<Boolean>> menuTrigger = new MutableLiveData<>();
 
     @Inject
     public MainMenuViewModel(Repository repository) {
@@ -84,6 +86,13 @@ public class MainMenuViewModel extends ViewModel {
         distanceError.setValue(null);
     }
 
+    public void onListClick() {
+
+    }
+
+    public void onMenuClick() {
+
+    }
 
     public MutableLiveData<List<Day>> getDatesList() {
         return datesList;

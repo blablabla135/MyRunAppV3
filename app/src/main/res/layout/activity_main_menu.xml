@@ -40,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
+                    android:layout_weight="0"
                     android:background="@drawable/ic_chevron_left"
                     android:onClick="@{()-> mainMenuViewModel.previousMonth()}" />
 
@@ -47,6 +48,7 @@
                 <TextView
                     android:id="@+id/month"
                     android:layout_width="140dp"
+                    android:layout_weight="0"
                     android:layout_height="wrap_content"
                     android:text="@{mainMenuViewModel.month}"
                     android:textAlignment="center"
@@ -56,10 +58,34 @@
 
                 <ImageButton
                     android:layout_width="wrap_content"
+                    android:layout_weight="0"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="@drawable/ic_chevron_right"
                     android:onClick="@{()-> mainMenuViewModel.nextMonth()}" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/ic_list"
+                    android:onClick="@{()-> mainMenuViewModel.onListClick()}" />
+
+                <ImageButton
+
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/ic_menu"
+                    android:onClick="@{()-> mainMenuViewModel.onMenuClick()}" />
             </LinearLayout>
 
 
