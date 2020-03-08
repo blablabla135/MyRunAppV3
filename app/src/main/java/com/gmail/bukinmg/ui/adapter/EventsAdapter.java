@@ -38,7 +38,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     public void setEvents(List<Event> events) {
         this.events = events;
         Collections.sort(events, comparator);
-
     }
 
     @NonNull

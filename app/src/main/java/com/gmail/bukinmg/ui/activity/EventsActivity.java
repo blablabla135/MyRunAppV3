@@ -1,10 +1,12 @@
 package com.gmail.bukinmg.ui.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.gmail.bukinmg.R;
@@ -27,6 +29,7 @@ public class EventsActivity extends AppCompatActivity {
     private EventsViewModel eventsViewModel;
     private ActivityEventsBinding activityEventsBinding;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
