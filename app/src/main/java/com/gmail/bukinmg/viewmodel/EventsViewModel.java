@@ -22,7 +22,7 @@ public class EventsViewModel extends ViewModel {
     @Inject
     public EventsViewModel(Repository repository) {
         this.repository = repository;
-        this.eventsList = repository.getAllEvents();
+        this.eventsList = repository.getAllEventsLiveData();
     }
 
     public void onBackClick() {

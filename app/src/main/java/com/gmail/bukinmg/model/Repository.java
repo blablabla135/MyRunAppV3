@@ -42,6 +42,10 @@ public class Repository {
         new InsertEventAsyncTask(eventDao).execute(event);
     }
 
+    public void delete(Event event) {
+        new DeleteEventAsyncTask(eventDao).execute(event);
+    }
+
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try {
@@ -54,10 +58,22 @@ public class Repository {
         return users;
     }
 
-    public LiveData<List<Event>> getAllEvents() {
-        LiveData<List<Event>> events = new MutableLiveData<>();
+    public List<Event> getAllEvents() {
+        List<Event> events = new ArrayList<>();
         try {
             events = new GetAllEventsAsyncTask(eventDao).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    public LiveData<List<Event>> getAllEventsLiveData() {
+        LiveData<List<Event>> events = new MutableLiveData<>();
+        try {
+            events = new GetAllEventsAsyncTaskLiveData(eventDao).execute().get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -94,6 +110,20 @@ public class Repository {
         }
     }
 
+    private static class DeleteEventAsyncTask extends AsyncTask<Event, Void, Void> {
+        private EventDao eventDao;
+
+        private DeleteEventAsyncTask(EventDao eventDao) {
+            this.eventDao = eventDao;
+        }
+
+        @Override
+        protected Void doInBackground(Event... events) {
+            eventDao.delete(events[0]);
+            return null;
+        }
+    }
+
     private static class GetAllUsersAsyncTask extends AsyncTask<Void, Void, List<User>> {
         private UserDao userDao;
 
@@ -107,7 +137,20 @@ public class Repository {
         }
     }
 
-    private static class GetAllEventsAsyncTask extends AsyncTask<Void, Void, LiveData<List<Event>>> {
+    private static class GetAllEventsAsyncTaskLiveData extends AsyncTask<Void, Void, LiveData<List<Event>>> {
+        private EventDao eventDao;
+
+        private GetAllEventsAsyncTaskLiveData(EventDao eventDao) {
+            this.eventDao = eventDao;
+        }
+
+        @Override
+        protected LiveData<List<Event>> doInBackground(Void... voids) {
+            return eventDao.getAllEventsLiveData();
+        }
+    }
+
+    private static class GetAllEventsAsyncTask extends AsyncTask<Void, Void, List<Event>> {
         private EventDao eventDao;
 
         private GetAllEventsAsyncTask(EventDao eventDao) {
@@ -115,7 +158,7 @@ public class Repository {
         }
 
         @Override
-        protected LiveData<List<Event>> doInBackground(Void... voids) {
+        protected List<Event> doInBackground(Void... voids) {
             return eventDao.getAllEvents();
         }
     }

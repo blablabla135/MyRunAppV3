@@ -77,6 +77,6 @@ public class Event {
     }
 
     public String getStringMonth() {
-        return new DateFormatSymbols().getMonths()[month-1].toLowerCase();
+        return new DateFormatSymbols().getMonths()[month].toLowerCase();
     }
 }

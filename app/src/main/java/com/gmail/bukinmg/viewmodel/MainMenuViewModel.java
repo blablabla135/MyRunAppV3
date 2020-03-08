@@ -1,5 +1,6 @@
 package com.gmail.bukinmg.viewmodel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -70,9 +71,15 @@ public class MainMenuViewModel extends ViewModel {
 
     public void onAddClick() {
         String userDistance = distance.getValue();
+        List<Event> events = repository.getAllEvents();
         if (userDistance.equals("")) {
             distanceError.setValue("Enter distance");
         } else {
+            for (Event event : events) {
+                if (event.getDay() == day.getDay() && event.getMonth() == day.getMonth() && event.getYear() == day.getYear()) {
+                    repository.delete(event);
+                }
+            }
             repository.insert(new Event(Integer.parseInt(userDistance), day.getYear(), day.getMonth(), day.getDay(), 1));
             distance.setValue("");
             distanceError.setValue(null);
@@ -97,6 +104,7 @@ public class MainMenuViewModel extends ViewModel {
     public MutableLiveData<List<Day>> getDatesList() {
         return datesList;
     }
+
 
     public void setDay(Day day) {
         this.day = day;

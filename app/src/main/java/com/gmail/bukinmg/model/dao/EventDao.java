@@ -24,5 +24,8 @@ public interface EventDao {
     void delete(Event event);
 
     @Query("SELECT * FROM event_table")
-    LiveData<List<Event>> getAllEvents();
+    LiveData<List<Event>> getAllEventsLiveData();
+
+    @Query("SELECT * FROM event_table")
+    List<Event> getAllEvents();
 }
