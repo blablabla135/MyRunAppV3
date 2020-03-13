@@ -6,7 +6,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.R;
@@ -34,11 +36,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     public EventsAdapter() {
     }
 
+    public Event getEventAt(int position) {
+        return events.get(position);
+    }
 
     public void setEvents(List<Event> events) {
         this.events = events;
         Collections.sort(events, comparator);
     }
+
 
     @NonNull
     @Override
@@ -74,4 +80,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
             binding.executePendingBindings();
         }
     }
+
+
 }

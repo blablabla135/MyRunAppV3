@@ -1,9 +1,12 @@
 package com.gmail.bukinmg.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Build;
@@ -28,11 +31,14 @@ public class EventsActivity extends AppCompatActivity {
     EventsAdapter eventsAdapter;
     private EventsViewModel eventsViewModel;
     private ActivityEventsBinding activityEventsBinding;
+    private RecyclerView recyclerView;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        recyclerView = findViewById(R.id.events_recycler_view);
 
         AndroidInjection.inject(this);
 
@@ -46,6 +52,18 @@ public class EventsActivity extends AppCompatActivity {
             eventsAdapter.setEvents(eventsViewModel.getEventsList().getValue());
             activityEventsBinding.setEventsAdapter(eventsAdapter);
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                eventsViewModel.deleteEvent(eventsAdapter.getEventAt(viewHolder.getAdapterPosition()));
+            }
+        }).attachToRecyclerView(recyclerView);
 
         eventsViewModel.backTrigger.observe(this, aBoolean -> {
             if (eventsViewModel.backTrigger != null) {

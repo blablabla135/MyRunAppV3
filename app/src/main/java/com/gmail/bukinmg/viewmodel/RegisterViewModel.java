@@ -32,15 +32,6 @@ public class RegisterViewModel extends ViewModel {
         confirmPassword.setValue("");
     }
 
-    @BindingAdapter("errorText")
-    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
-        if (errorText != null) {
-            textInputLayout.setError(errorText);
-        } else {
-            textInputLayout.setError(null);
-        }
-    }
-
     public void onRegisterClicked() {
 
         String userEmail = eMail.getValue();
@@ -97,6 +88,15 @@ public class RegisterViewModel extends ViewModel {
     private boolean isPasswordValid(String password, String confirmPassword) {
         if (password.equals("")) return false;
         return password.equals(confirmPassword);
+    }
+
+    @BindingAdapter("errorText")
+    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
+        if (errorText != null) {
+            textInputLayout.setError(errorText);
+        } else {
+            textInputLayout.setError(null);
+        }
     }
 
 

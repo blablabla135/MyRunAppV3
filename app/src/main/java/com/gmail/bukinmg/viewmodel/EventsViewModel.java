@@ -1,8 +1,11 @@
 package com.gmail.bukinmg.viewmodel;
 
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.model.Repository;
 import com.gmail.bukinmg.model.entity.Event;
@@ -31,5 +34,9 @@ public class EventsViewModel extends ViewModel {
 
     public LiveData<List<Event>> getEventsList() {
         return eventsList;
+    }
+
+    public void deleteEvent(Event event) {
+        repository.delete(event);
     }
 }
