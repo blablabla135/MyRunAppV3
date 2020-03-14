@@ -2,17 +2,15 @@ package com.gmail.bukinmg.ui.adapter;
 
 import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.databinding.BindingAdapter;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.R;
-import com.gmail.bukinmg.databinding.EventViewItemBinding;
 import com.gmail.bukinmg.model.entity.Event;
 import com.gmail.bukinmg.utility.EventDayComparator;
 import com.gmail.bukinmg.utility.EventMonthComparator;
@@ -29,7 +27,7 @@ import javax.inject.Inject;
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {
 
     private List<Event> events = new ArrayList<>();
-    Comparator<Event> comparator = new EventYearComparator().thenComparing(new EventMonthComparator().thenComparing(new EventDayComparator()));
+    private Comparator<Event> comparator = new EventYearComparator().thenComparing(new EventMonthComparator().thenComparing(new EventDayComparator()));
 
 
     @Inject
@@ -43,22 +41,25 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     public void setEvents(List<Event> events) {
         this.events = events;
         Collections.sort(events, comparator);
+        notifyDataSetChanged();
     }
 
 
     @NonNull
     @Override
-    public EventsAdapter.EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        EventViewItemBinding binding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()),
-                R.layout.event_view_item, parent, false);
-        return new EventsViewHolder(binding);
+    public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.event_view_item, parent, false);
+        return new EventsViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventsAdapter.EventsViewHolder holder, int position) {
         Event event = events.get(position);
-        holder.bind(event);
+        String date = event.getDay() + " " + event.getStringMonth() + " " + event.getYear();
+        holder.textViewDate.setText(date);
+        String distance = event.getDistance() + "km";
+        holder.textViewDistance.setText(distance);
     }
 
     @Override
@@ -68,18 +69,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     public static class EventsViewHolder extends RecyclerView.ViewHolder {
 
-        private EventViewItemBinding binding;
+        private TextView textViewDate;
+        private TextView textViewDistance;
 
-        public EventsViewHolder(EventViewItemBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-
-        public void bind(Event event) {
-            binding.setEvents(event);
-            binding.executePendingBindings();
+        public EventsViewHolder(View itemView) {
+            super(itemView);
+            textViewDate = itemView.findViewById(R.id.date);
+            textViewDistance = itemView.findViewById(R.id.distance);
         }
     }
-
-
 }

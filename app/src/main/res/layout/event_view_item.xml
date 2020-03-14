@@ -1,55 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
 
-        <variable
-            name="events"
-            type="com.gmail.bukinmg.model.entity.Event" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cell_days"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
 
-    </data>
-
-    <LinearLayout
-        android:id="@+id/cell_days"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="5dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1">
+            android:dividerPadding="5dp"
+            android:divider="@drawable/separator"
+            android:showDividers="middle">
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{events.getDay + ` ` + events.getStringMonth + ` ` + events.getYear}"
+                android:layout_weight="1"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="0">
 
             <TextView
                 android:id="@+id/distance"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{events.getDistance + `km`}"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
-    </LinearLayout>
-</layout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

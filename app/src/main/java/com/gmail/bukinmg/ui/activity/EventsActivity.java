@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -32,13 +33,12 @@ public class EventsActivity extends AppCompatActivity {
     private EventsViewModel eventsViewModel;
     private ActivityEventsBinding activityEventsBinding;
     private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        recyclerView = findViewById(R.id.events_recycler_view);
 
         AndroidInjection.inject(this);
 
@@ -48,9 +48,16 @@ public class EventsActivity extends AppCompatActivity {
         activityEventsBinding.setEventsViewModel(eventsViewModel);
         activityEventsBinding.setLifecycleOwner(this);
 
+        recyclerView = findViewById(R.id.events_recycler_view);
+
+        linearLayoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(eventsAdapter);
+
         eventsViewModel.getEventsList().observe(this, events -> {
             eventsAdapter.setEvents(eventsViewModel.getEventsList().getValue());
-            activityEventsBinding.setEventsAdapter(eventsAdapter);
+            //activityEventsBinding.setEventsAdapter(eventsAdapter);
         });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
