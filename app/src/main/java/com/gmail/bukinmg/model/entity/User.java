@@ -14,12 +14,15 @@ public class User {
 
     private String password;
 
-    private int mainEventId;
+    private String mainEventName;
 
-    public User(String eMail, String password, int mainEventId) {
+    private String mainEventDate;
+
+    public User(String eMail, String password, String mainEventName, String mainEventDate) {
         this.eMail = eMail;
         this.password = password;
-        this.mainEventId = mainEventId;
+        this.mainEventName = mainEventName;
+        this.mainEventDate = mainEventDate;
     }
 
     public int getId() {
@@ -42,15 +45,23 @@ public class User {
         this.password = password;
     }
 
-    public int getMainEventId() {
-        return mainEventId;
-    }
-
-    public void setMainEventId(int mainEventId) {
-        this.mainEventId = mainEventId;
-    }
-
     public void seteMail(String eMail) {
         this.eMail = eMail;
+    }
+
+    public String getMainEventName() {
+        return mainEventName;
+    }
+
+    public void setMainEventName(String mainEventName) {
+        this.mainEventName = mainEventName;
+    }
+
+    public String getMainEventDate() {
+        return mainEventDate;
+    }
+
+    public void setMainEventDate(String mainEventDate) {
+        this.mainEventDate = mainEventDate;
     }
 }

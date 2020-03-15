@@ -7,17 +7,11 @@ public class MainEvent {
 
     private String name;
 
-    private int year;
+    private String date;
 
-    private int month;
-
-    private int day;
-
-    public MainEvent(String name, int year, int month, int day) {
+    public MainEvent(String name, String date) {
         this.name = name;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        this.date = date;
     }
 
     public String getName() {
@@ -28,27 +22,11 @@ public class MainEvent {
         this.name = name;
     }
 
-    public int getYear() {
-        return year;
+    public String getDate() {
+        return date;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

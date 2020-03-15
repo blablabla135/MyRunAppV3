@@ -172,10 +172,7 @@ public class Repository {
                 List<Post> posts = response.body();
 
                 for (Post post : posts) {
-                    String date = post.getDate();
-                    String [] subStr;
-                    subStr = date.split("-");
-                    mainEvents.add(new MainEvent(post.getName(), Integer.parseInt(subStr[2]), Integer.parseInt(subStr[1]), Integer.parseInt(subStr[0])));
+                    mainEvents.add(new MainEvent(post.getName(), post.getDate()));
                 }
                 mainEventsListLiveData.setValue(mainEvents);
             }
@@ -183,7 +180,7 @@ public class Repository {
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 List<MainEvent> mainEvents = new ArrayList<>();
-                mainEvents.add(new MainEvent("0000", 0, 0, 0));
+                mainEvents.add(new MainEvent("Unknown event", "Unknown date"));
                 mainEventsListLiveData.setValue(mainEvents);
             }
         });
