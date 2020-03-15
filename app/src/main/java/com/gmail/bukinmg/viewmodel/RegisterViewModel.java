@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.gmail.bukinmg.model.entity.User;
-import com.gmail.bukinmg.model.Repository;
+import com.gmail.bukinmg.model.DBRepository;
 import com.gmail.bukinmg.utility.EventWrapper;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -22,11 +22,12 @@ public class RegisterViewModel extends ViewModel {
     public MutableLiveData<String> password = new MutableLiveData<>();
     public MutableLiveData<String> confirmPassword = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> loginTrigger = new MutableLiveData<>();
-    private Repository repository;
+    public MutableLiveData<EventWrapper<Boolean>> dialogTrigger = new MutableLiveData<>();
+    private DBRepository dBRepository;
 
     @Inject
-    public RegisterViewModel(Repository repository) {
-        this.repository = repository;
+    public RegisterViewModel(DBRepository dBRepository) {
+        this.dBRepository = dBRepository;
         eMail.setValue("");
         password.setValue("");
         confirmPassword.setValue("");
@@ -38,7 +39,7 @@ public class RegisterViewModel extends ViewModel {
         String userPassword = password.getValue();
         String userConfirmPassword = confirmPassword.getValue();
 
-        List<User> usersList = repository.getAllUsers();
+        List<User> usersList = dBRepository.getAllUsers();
 
         if (userEmail.equals("")) {
             errorEmail.setValue("Enter eMail");
@@ -66,10 +67,14 @@ public class RegisterViewModel extends ViewModel {
 
         if (isPasswordValid(userPassword, userConfirmPassword) && isEmailValid(userEmail, usersList)) {
 
-            repository.insert(new User(userEmail, userPassword, 1));
+            dBRepository.insert(new User(userEmail, userPassword, "1", "1"));
 
             loginTrigger.setValue(new EventWrapper<>(true));
         }
+    }
+
+    public void onMainEventClick() {
+        dialogTrigger.setValue(new EventWrapper<>(true));
     }
 
     private boolean isEmailValid(String eMail, List<User> users) {

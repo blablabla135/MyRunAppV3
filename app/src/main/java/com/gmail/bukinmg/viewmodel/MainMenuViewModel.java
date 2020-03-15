@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.gmail.bukinmg.model.Repository;
+import com.gmail.bukinmg.model.DBRepository;
 import com.gmail.bukinmg.model.entity.Day;
 import com.gmail.bukinmg.model.entity.Event;
 import com.gmail.bukinmg.utility.EventWrapper;
@@ -22,7 +22,7 @@ public class MainMenuViewModel extends ViewModel {
     public MutableLiveData<String> month = new MutableLiveData<>();
     public MutableLiveData<String> distance = new MutableLiveData<>();
     public MutableLiveData<String> distanceError = new MutableLiveData<>();
-    private Repository repository;
+    private DBRepository dBRepository;
     private Calendar mainCalendar;
     private Day day;
     public MutableLiveData<EventWrapper<Boolean>> addTrigger = new MutableLiveData<>();
@@ -31,8 +31,8 @@ public class MainMenuViewModel extends ViewModel {
     public MutableLiveData<EventWrapper<Boolean>> menuTrigger = new MutableLiveData<>();
 
     @Inject
-    public MainMenuViewModel(Repository repository) {
-        this.repository = repository;
+    public MainMenuViewModel(DBRepository dBRepository) {
+        this.dBRepository = dBRepository;
         this.mainCalendar = Calendar.getInstance(Locale.ENGLISH);
         mainCalendar.setFirstDayOfWeek(Calendar.MONDAY);
         distance.setValue("");
@@ -71,16 +71,16 @@ public class MainMenuViewModel extends ViewModel {
 
     public void onAddClick() {
         String userDistance = distance.getValue();
-        List<Event> events = repository.getAllEvents();
+        List<Event> events = dBRepository.getAllEvents();
         if (userDistance.equals("")) {
             distanceError.setValue("Enter distance");
         } else {
             for (Event event : events) {
                 if (event.getDay() == day.getDay() && event.getMonth() == day.getMonth() && event.getYear() == day.getYear()) {
-                    repository.delete(event);
+                    dBRepository.delete(event);
                 }
             }
-            repository.insert(new Event(Integer.parseInt(userDistance), day.getYear(), day.getMonth(), day.getDay(), 1));
+            dBRepository.insert(new Event(Integer.parseInt(userDistance), day.getYear(), day.getMonth(), day.getDay(), 1));
             distance.setValue("");
             distanceError.setValue(null);
             addTrigger.setValue(new EventWrapper<>(true));

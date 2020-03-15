@@ -1,8 +1,5 @@
 package com.gmail.bukinmg.model.entity;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 public class MainEvent {
 
     private String name;

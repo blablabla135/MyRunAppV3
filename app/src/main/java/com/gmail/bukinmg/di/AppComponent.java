@@ -8,7 +8,7 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
 
-@Component(modules = {MyDataBaseModule.class, ViewModelModule.class, ActivityModule.class, FragmentModule.class, AndroidSupportInjectionModule.class})
+@Component(modules = {RetrofitModule.class, MyDataBaseModule.class, ViewModelModule.class, ActivityModule.class, FragmentModule.class, AndroidSupportInjectionModule.class})
 
 @Singleton
 public interface AppComponent {
