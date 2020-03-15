@@ -4,7 +4,6 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 import com.gmail.bukinmg.model.dao.EventDao;
-import com.gmail.bukinmg.model.dao.MainEventDao;
 import com.gmail.bukinmg.model.dao.UserDao;
 import com.gmail.bukinmg.model.entity.Event;
 import com.gmail.bukinmg.model.entity.MainEvent;
@@ -17,7 +16,5 @@ public abstract class MyDataBase extends RoomDatabase {
     public abstract UserDao userDao();
 
     public abstract EventDao eventDao();
-
-    public abstract MainEventDao mainEventDao();
 
 }

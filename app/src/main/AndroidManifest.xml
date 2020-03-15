@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gmail.bukinmg">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".di.AppController"
         android:allowBackup="true"

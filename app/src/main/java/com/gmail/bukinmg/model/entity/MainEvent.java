@@ -3,11 +3,7 @@ package com.gmail.bukinmg.model.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "main_event_table")
 public class MainEvent {
-
-    @PrimaryKey(autoGenerate = true)
-    private int id;
 
     private String name;
 
@@ -22,14 +18,6 @@ public class MainEvent {
         this.year = year;
         this.month = month;
         this.day = day;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

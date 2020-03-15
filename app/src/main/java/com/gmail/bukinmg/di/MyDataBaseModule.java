@@ -5,8 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 
+import com.gmail.bukinmg.model.RetrofitClient;
 import com.gmail.bukinmg.model.dao.EventDao;
-import com.gmail.bukinmg.model.dao.MainEventDao;
 import com.gmail.bukinmg.model.dao.UserDao;
 import com.gmail.bukinmg.model.MyDataBase;
 import com.gmail.bukinmg.model.Repository;
@@ -39,15 +39,10 @@ public class MyDataBaseModule {
         return myDataBase.eventDao();
     }
 
-    @Singleton
-    @Provides
-    public MainEventDao provideMainEventDao(MyDataBase myDataBase) {
-        return myDataBase.mainEventDao();
-    }
 
     @Singleton
     @Provides
-    public Repository repository(UserDao userDao, EventDao eventDao, MainEventDao mainEventDao) {
-        return new Repository(userDao, eventDao, mainEventDao);
+    public Repository repository(UserDao userDao, EventDao eventDao, RetrofitClient retrofitClient) {
+        return new Repository(userDao, eventDao, retrofitClient);
     }
 }
