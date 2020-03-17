@@ -53,6 +53,10 @@ public class RegisterActivity extends AppCompatActivity {
             dialogFragment = new MainEventDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "MainEventDialogFragment");
         });
+
+        registerViewModel.dialogDismissTrigger.observe(this, booleanEventWrapper -> {
+            dialogFragment.dismiss();
+        });
     }
 
 

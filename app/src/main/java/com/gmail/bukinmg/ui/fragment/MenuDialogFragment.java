@@ -50,6 +50,8 @@ public class MenuDialogFragment extends DialogFragment {
         dialogFragmentBinding.setMainMenuViewModel(mainMenuViewModel);
         dialogFragmentBinding.setLifecycleOwner(this);
 
+
+
         return new MaterialAlertDialogBuilder(getActivity())
                 .setView(dialogFragmentBinding.getRoot()).create();
     }

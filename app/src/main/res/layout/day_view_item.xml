@@ -27,24 +27,23 @@
                 android:id="@+id/day"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
+                android:gravity="bottom|center_horizontal"
                 android:text="@{`` + days.getDay}"
-                android:gravity="bottom"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="13dp">
+                android:layout_height="13dp"
+                android:gravity="center">
 
                 <LinearLayout
                     android:id="@+id/line"
                     android:layout_width="32dp"
                     android:layout_height="4dp"
                     android:gravity="center"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal" />
 
             </LinearLayout>
-
 
 
         </LinearLayout>

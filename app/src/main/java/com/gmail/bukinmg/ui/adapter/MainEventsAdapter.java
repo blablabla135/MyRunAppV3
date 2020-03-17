@@ -20,6 +20,7 @@ import javax.inject.Inject;
 public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.MainEventsViewHolder> {
 
     private List<MainEvent> mainEventList = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
 
     public MainEventsAdapter() {
     }
@@ -37,6 +38,14 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Ma
         MainEvent mainEvent = mainEventList.get(position);
         holder.textName.setText(mainEvent.getName());
         holder.textDate.setText(mainEvent.getDate());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(mainEvent);
+                }
+            }
+        });
 
     }
 
@@ -47,6 +56,10 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Ma
 
     public void setMainEventList(List<MainEvent> mainEventList) {
         this.mainEventList = mainEventList;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
 
@@ -60,6 +73,10 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Ma
             textName = itemView.findViewById(R.id.name_me);
             textDate = itemView.findViewById(R.id.date_me);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(MainEvent mainEvent);
     }
 
 

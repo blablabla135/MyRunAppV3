@@ -30,7 +30,11 @@ public class RegisterViewModel extends ViewModel {
     private List<MainEvent> mainEventList = new ArrayList<>();
     public MutableLiveData<EventWrapper<Boolean>> loginTrigger = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> dialogTrigger = new MutableLiveData<>();
+    public MutableLiveData<EventWrapper<Boolean>> dialogDismissTrigger = new MutableLiveData<>();
     private DBRepository dBRepository;
+    private MainEvent mainEvent;
+
+
 
     @Inject
     public RegisterViewModel(DBRepository dBRepository, RetrofitRepository retrofitRepository) {
@@ -114,6 +118,14 @@ public class RegisterViewModel extends ViewModel {
         } else {
             textInputLayout.setError(null);
         }
+    }
+
+    public void setMainEvent(MainEvent mainEvent) {
+        this.mainEvent = mainEvent;
+    }
+
+    public void onMainEventSelected() {
+        dialogDismissTrigger.setValue(new EventWrapper<>(true));
     }
 
 

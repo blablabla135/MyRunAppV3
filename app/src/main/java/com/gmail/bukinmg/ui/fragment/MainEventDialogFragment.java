@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.DialogFragmentMainEventBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
+import com.gmail.bukinmg.model.entity.MainEvent;
 import com.gmail.bukinmg.ui.adapter.MainEventsAdapter;
 import com.gmail.bukinmg.viewmodel.RegisterViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -56,8 +57,18 @@ public class MainEventDialogFragment extends DialogFragment {
         recyclerView = dialogFragmentBinding.mainEventListView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mainEventsAdapter = new MainEventsAdapter();
+
+        mainEventsAdapter.setOnItemClickListener(new MainEventsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(MainEvent mainEvent) {
+                registerViewModel.setMainEvent(mainEvent);
+                registerViewModel.onMainEventSelected();
+            }
+        });
         mainEventsAdapter.setMainEventList(registerViewModel.getAllMainEvents());
         recyclerView.setAdapter(mainEventsAdapter);
+
+
 
         return new MaterialAlertDialogBuilder(getActivity())
                 .setView(dialogFragmentBinding.getRoot()).create();
