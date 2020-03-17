@@ -1,50 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="mainEvents"
-            type="com.gmail.bukinmg.model.entity.MainEvent" />
 
-    </data>
-
-    <LinearLayout
-        android:id="@+id/cell_main_events"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+<LinearLayout android:id="@+id/cell_main_events"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:dividerPadding="5dp"
-                android:divider="@drawable/separator"
-                android:showDividers="middle">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/date"
-                    android:layout_width="0dp"
+                    android:id="@+id/name_me"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@{`` + mainEvents.getName}"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
-                    android:id="@+id/distance"
-                    android:layout_width="150dp"
+                    android:id="@+id/date_me"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{`` + mainEvents.getDate}"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
 
 
@@ -52,4 +45,3 @@
 
 
     </LinearLayout>
-</layout>

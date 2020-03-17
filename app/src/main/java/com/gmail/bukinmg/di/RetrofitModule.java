@@ -18,7 +18,7 @@ public class RetrofitModule {
     @Provides
     public Retrofit provideRetrofit(GsonConverterFactory gsonConverterFactory) {
         return new Retrofit.Builder()
-                .baseUrl("https://my-json-server.typicode.com/blablabla135/JSON")
+                .baseUrl("https://my-json-server.typicode.com/blablabla135/JSON/")
                 .addConverterFactory(gsonConverterFactory)
                 .build();
     }

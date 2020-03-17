@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+
         <variable
             name="registerViewModel"
             type="com.gmail.bukinmg.viewmodel.RegisterViewModel" />
@@ -11,18 +15,20 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ui.fragment.MainEventDialogFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_event_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="wrap_content"
+            android:id="@+id/main_event_list_view"/>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:gravity="end">
 
             <com.google.android.material.button.MaterialButton
@@ -36,7 +42,7 @@
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/cancel" />
 
         </LinearLayout>

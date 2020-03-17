@@ -1,14 +1,20 @@
 package com.gmail.bukinmg.viewmodel;
 
+import android.net.MacAddress;
+
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.gmail.bukinmg.model.RetrofitRepository;
+import com.gmail.bukinmg.model.entity.Day;
+import com.gmail.bukinmg.model.entity.MainEvent;
 import com.gmail.bukinmg.model.entity.User;
 import com.gmail.bukinmg.model.DBRepository;
 import com.gmail.bukinmg.utility.EventWrapper;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,16 +27,18 @@ public class RegisterViewModel extends ViewModel {
     public MutableLiveData<String> eMail = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
     public MutableLiveData<String> confirmPassword = new MutableLiveData<>();
+    private List<MainEvent> mainEventList = new ArrayList<>();
     public MutableLiveData<EventWrapper<Boolean>> loginTrigger = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> dialogTrigger = new MutableLiveData<>();
     private DBRepository dBRepository;
 
     @Inject
-    public RegisterViewModel(DBRepository dBRepository) {
+    public RegisterViewModel(DBRepository dBRepository, RetrofitRepository retrofitRepository) {
         this.dBRepository = dBRepository;
         eMail.setValue("");
         password.setValue("");
         confirmPassword.setValue("");
+        mainEventList = retrofitRepository.getAllMainEvents();
     }
 
     public void onRegisterClicked() {
@@ -93,6 +101,10 @@ public class RegisterViewModel extends ViewModel {
     private boolean isPasswordValid(String password, String confirmPassword) {
         if (password.equals("")) return false;
         return password.equals(confirmPassword);
+    }
+
+    public List<MainEvent> getAllMainEvents() {
+        return mainEventList;
     }
 
     @BindingAdapter("errorText")

@@ -24,29 +24,28 @@ public class RetrofitRepository {
         this.jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
     }
 
-    public MutableLiveData<List<MainEvent>> getAllMainEvents() {
-        MutableLiveData<List<MainEvent>> mainEventsListLiveData = new MutableLiveData<>();
+    public List<MainEvent> getAllMainEvents() {
+        List<MainEvent> mainEvents = new ArrayList<>();
         Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
 
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                List<MainEvent> mainEvents = new ArrayList<>();
+
                 List<Post> posts = response.body();
 
                 for (Post post : posts) {
                     mainEvents.add(new MainEvent(post.getName(), post.getDate()));
                 }
-                mainEventsListLiveData.setValue(mainEvents);
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 List<MainEvent> mainEvents = new ArrayList<>();
                 mainEvents.add(new MainEvent("Unknown event", "Unknown date"));
-                mainEventsListLiveData.setValue(mainEvents);
+
             }
         });
-        return mainEventsListLiveData;
+        return mainEvents;
     }
 }
