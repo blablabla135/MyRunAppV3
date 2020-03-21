@@ -18,14 +18,14 @@ public class Event {
 
     private int day;
 
-    private int userId;
+    private String userEmail;
 
-    public Event(int distance, int year, int month, int day, int userId) {
+    public Event(int distance, int year, int month, int day, String userEmail) {
         this.distance = distance;
         this.year = year;
         this.month = month;
         this.day = day;
-        this.userId = userId;
+        this.userEmail = userEmail;
     }
 
     public int getId() {
@@ -68,12 +68,12 @@ public class Event {
         this.day = day;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getStringMonth() {

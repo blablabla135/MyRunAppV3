@@ -1,7 +1,5 @@
 package com.gmail.bukinmg.model;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.gmail.bukinmg.model.entity.MainEvent;
 import com.gmail.bukinmg.model.entity.Post;
 

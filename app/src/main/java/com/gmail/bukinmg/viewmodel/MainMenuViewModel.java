@@ -1,6 +1,5 @@
 package com.gmail.bukinmg.viewmodel;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -25,6 +24,8 @@ public class MainMenuViewModel extends ViewModel {
     private DBRepository dBRepository;
     private Calendar mainCalendar;
     private Day day;
+    private String userEmail;
+    private String mainEventDate;
     public MutableLiveData<EventWrapper<Boolean>> addTrigger = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> cancelTrigger = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> listTrigger = new MutableLiveData<>();
@@ -36,13 +37,13 @@ public class MainMenuViewModel extends ViewModel {
         this.mainCalendar = Calendar.getInstance(Locale.ENGLISH);
         mainCalendar.setFirstDayOfWeek(Calendar.MONDAY);
         distance.setValue("");
-        initializeDates();
     }
 
     public void initializeDates() {
         month.setValue(mainCalendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH));
 
         List<Day> dates = new ArrayList<>();
+        List<Event> events = dBRepository.getAllEvents();
         Calendar datesCalendar = (Calendar) mainCalendar.clone();
 
         datesCalendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -54,6 +55,32 @@ public class MainMenuViewModel extends ViewModel {
                     , datesCalendar.get(Calendar.MONTH)
                     , datesCalendar.get(Calendar.YEAR)));
             datesCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        for (Day day : dates) {
+            for (Event event : events) {
+                if (day.getDay() == event.getDay() &&
+                        day.getMonth() == event.getMonth() &&
+                        day.getYear() == event.getYear() && userEmail.equals(event.getUserEmail())) {
+                    day.setColor(3);
+                }
+            }
+
+            Calendar date = Calendar.getInstance(Locale.ENGLISH);
+
+            String [] arrayDate = mainEventDate.split("-");
+
+            if (day.getDay() == Integer.parseInt(arrayDate[0]) &&
+                    day.getMonth() == Integer.parseInt(arrayDate[1]) &&
+                    day.getYear() == Integer.parseInt(arrayDate[2])) {
+                day.setColor(2);
+            }
+
+            if (day.getDay() == date.get(Calendar.DAY_OF_MONTH) &&
+            day.getMonth() == date.get(Calendar.MONTH) &&
+            day.getYear() == date.get(Calendar.YEAR)) {
+                day.setColor(1);
+            }
         }
 
         datesList.setValue(dates);
@@ -76,11 +103,11 @@ public class MainMenuViewModel extends ViewModel {
             distanceError.setValue("Enter distance");
         } else {
             for (Event event : events) {
-                if (event.getDay() == day.getDay() && event.getMonth() == day.getMonth() && event.getYear() == day.getYear()) {
+                if (event.getDay() == day.getDay() && event.getMonth() == day.getMonth() && event.getYear() == day.getYear() &&event.getUserEmail().equals(userEmail)) {
                     dBRepository.delete(event);
                 }
             }
-            dBRepository.insert(new Event(Integer.parseInt(userDistance), day.getYear(), day.getMonth(), day.getDay(), 1));
+            dBRepository.insert(new Event(Integer.parseInt(userDistance), day.getYear(), day.getMonth(), day.getDay(), userEmail));
             distance.setValue("");
             distanceError.setValue(null);
             addTrigger.setValue(new EventWrapper<>(true));
@@ -105,12 +132,19 @@ public class MainMenuViewModel extends ViewModel {
         return datesList;
     }
 
-
     public void setDay(Day day) {
         this.day = day;
     }
 
     public Day getDay() {
         return day;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setMainEventDate(String mainEventDate) {
+        this.mainEventDate = mainEventDate;
     }
 }

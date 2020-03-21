@@ -4,11 +4,13 @@ public class Day {
     private int day;
     private int month;
     private int year;
+    private int color;
 
     public Day(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
+        color = 0;
     }
 
     public int getDay() {
@@ -33,5 +35,13 @@ public class Day {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

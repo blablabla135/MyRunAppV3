@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.bukinmg.R;
@@ -13,7 +12,6 @@ import com.gmail.bukinmg.databinding.ActivityMainMenuBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
 import com.gmail.bukinmg.ui.fragment.MenuDialogFragment;
 import com.gmail.bukinmg.ui.adapter.DatesAdapter;
-import com.gmail.bukinmg.utility.EventWrapper;
 import com.gmail.bukinmg.viewmodel.MainMenuViewModel;
 
 
@@ -43,6 +41,16 @@ public class MainMenuActivity extends AppCompatActivity {
         activityMainMenuBinding.setMainMenuViewModel(mainMenuViewModel);
         activityMainMenuBinding.setLifecycleOwner(this);
 
+        Intent intentLogin = getIntent();
+
+        String eMail = intentLogin.getStringExtra("email");
+        String mainEventDate = intentLogin.getStringExtra("date");
+
+        mainMenuViewModel.setUserEmail(eMail);
+        mainMenuViewModel.setMainEventDate(mainEventDate);
+
+        mainMenuViewModel.initializeDates();
+
         mainMenuViewModel.getDatesList().observe(this, days -> {
             datesAdapter.setDays(mainMenuViewModel.getDatesList().getValue());
             activityMainMenuBinding.setDatesAdapter(datesAdapter);
@@ -57,6 +65,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mainMenuViewModel.addTrigger.observe(this, booleanEventWrapper -> {
             if (mainMenuViewModel.addTrigger != null) {
                 dialogFragment.dismiss();
+                mainMenuViewModel.initializeDates();
             }
         });
 
@@ -69,6 +78,8 @@ public class MainMenuActivity extends AppCompatActivity {
         mainMenuViewModel.listTrigger.observe(this, booleanEventWrapper -> {
             if (mainMenuViewModel.listTrigger != null) {
                 Intent intent = new Intent(MainMenuActivity.this, EventsActivity.class);
+                intent.putExtra("email", eMail);
+                intent.putExtra("date", mainEventDate);
                 startActivity(intent);
             }
         });

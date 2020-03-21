@@ -1,9 +1,13 @@
 package com.gmail.bukinmg.ui.adapter;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,6 +60,7 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
 
     public static class DatesViewHolder extends RecyclerView.ViewHolder {
 
+
         private DayViewItemBinding binding;
 
         public DatesViewHolder(DayViewItemBinding binding) {
@@ -76,6 +81,18 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
 
     public interface OnItemClickListener {
         void onItemClick(Day day);
+    }
+
+    @BindingAdapter({"app:colorDay"})
+    public static void setColor(LinearLayout layout, int color) {
+
+        if (color == 1) {
+            layout.setBackgroundResource(R.drawable.line_blue);;
+        } else if (color == 2) {
+            layout.setBackgroundResource(R.drawable.line_red);;
+        } else if (color == 3) {
+            layout.setBackgroundResource(R.drawable.line_green);
+        }
     }
 
 }

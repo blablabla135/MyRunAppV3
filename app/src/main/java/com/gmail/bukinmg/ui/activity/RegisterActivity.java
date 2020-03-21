@@ -5,14 +5,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityRegisterBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
 import com.gmail.bukinmg.ui.fragment.MainEventDialogFragment;
-import com.gmail.bukinmg.utility.EventWrapper;
 import com.gmail.bukinmg.viewmodel.RegisterViewModel;
 
 import javax.inject.Inject;
@@ -56,8 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerViewModel.dialogDismissTrigger.observe(this, booleanEventWrapper -> {
             dialogFragment.dismiss();
+            registerViewModel.setRaceText(registerViewModel.getMainEvent().getName());
         });
     }
-
-
 }

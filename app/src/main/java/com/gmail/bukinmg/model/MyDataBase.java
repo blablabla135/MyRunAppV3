@@ -14,5 +14,4 @@ public abstract class MyDataBase extends RoomDatabase {
     public abstract UserDao userDao();
 
     public abstract EventDao eventDao();
-
 }

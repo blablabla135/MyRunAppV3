@@ -28,4 +28,6 @@ public interface EventDao {
 
     @Query("SELECT * FROM event_table")
     List<Event> getAllEvents();
+
+
 }

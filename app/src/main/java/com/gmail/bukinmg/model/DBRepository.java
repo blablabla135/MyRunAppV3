@@ -8,8 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.gmail.bukinmg.model.dao.EventDao;
 import com.gmail.bukinmg.model.dao.UserDao;
 import com.gmail.bukinmg.model.entity.Event;
-import com.gmail.bukinmg.model.entity.MainEvent;
-import com.gmail.bukinmg.model.entity.Post;
 import com.gmail.bukinmg.model.entity.User;
 
 import java.util.ArrayList;
@@ -19,15 +17,13 @@ import java.util.concurrent.ExecutionException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 @Singleton
 public class DBRepository {
 
     private UserDao userDao;
     private EventDao eventDao;
+    private LiveData<List<Event>> eventsLiveData;
+    private List<Event> events;
 
 
 
@@ -35,7 +31,6 @@ public class DBRepository {
     public DBRepository(UserDao userDao, EventDao eventDao) {
         this.userDao = userDao;
         this.eventDao = eventDao;
-
     }
 
     public void insert(User user) {
@@ -70,15 +65,17 @@ public class DBRepository {
         return events;
     }
 
-    public LiveData<List<Event>> getAllEventsLiveData() {
-        LiveData<List<Event>> events = new MutableLiveData<>();
+    public LiveData<List<Event>> getAllLiveEvents() {
+        LiveData<List<Event>> events = new LiveData<List<Event>>() {
+        };
         try {
-            events = new GetAllEventsAsyncTaskLiveData(eventDao).execute().get();
+            events = new GetAllLiveEventsAsyncTask(eventDao).execute().get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         return events;
     }
+
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
         private UserDao userDao;
@@ -135,19 +132,6 @@ public class DBRepository {
         }
     }
 
-    private static class GetAllEventsAsyncTaskLiveData extends AsyncTask<Void, Void, LiveData<List<Event>>> {
-        private EventDao eventDao;
-
-        private GetAllEventsAsyncTaskLiveData(EventDao eventDao) {
-            this.eventDao = eventDao;
-        }
-
-        @Override
-        protected LiveData<List<Event>> doInBackground(Void... voids) {
-            return eventDao.getAllEventsLiveData();
-        }
-    }
-
     private static class GetAllEventsAsyncTask extends AsyncTask<Void, Void, List<Event>> {
         private EventDao eventDao;
 
@@ -161,6 +145,18 @@ public class DBRepository {
         }
     }
 
+    private static class GetAllLiveEventsAsyncTask extends AsyncTask<Void, Void, LiveData<List<Event>>> {
+        private EventDao eventDao;
+
+        private GetAllLiveEventsAsyncTask(EventDao eventDao) {
+            this.eventDao = eventDao;
+        }
+
+        @Override
+        protected LiveData<List<Event>> doInBackground(Void... voids) {
+            return eventDao.getAllEventsLiveData();
+        }
+    }
 
 }
 

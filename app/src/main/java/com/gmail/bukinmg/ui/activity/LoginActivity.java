@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.mainTrigger.observe(this, aBoolean -> {
             if (loginViewModel.mainTrigger != null) {
                 Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                intent.putExtra("email", loginViewModel.eMail.getValue());
+                intent.putExtra("date", loginViewModel.getMainEventDate());
                 startActivity(intent);
             }
         });

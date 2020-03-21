@@ -9,13 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.R;
-import com.gmail.bukinmg.model.entity.Event;
 import com.gmail.bukinmg.model.entity.MainEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 
 public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.MainEventsViewHolder> {
 
@@ -38,12 +36,9 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Ma
         MainEvent mainEvent = mainEventList.get(position);
         holder.textName.setText(mainEvent.getName());
         holder.textDate.setText(mainEvent.getDate());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(mainEvent);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(mainEvent);
             }
         });
 

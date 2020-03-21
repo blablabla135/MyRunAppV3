@@ -1,16 +1,14 @@
 package com.gmail.bukinmg.viewmodel;
 
-import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.gmail.bukinmg.model.DBRepository;
 import com.gmail.bukinmg.model.entity.Event;
 import com.gmail.bukinmg.utility.EventWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,7 +23,7 @@ public class EventsViewModel extends ViewModel {
     @Inject
     public EventsViewModel(DBRepository dBRepository) {
         this.dBRepository = dBRepository;
-        this.eventsList = dBRepository.getAllEventsLiveData();
+        eventsList = dBRepository.getAllLiveEvents();
     }
 
     public void onBackClick() {
@@ -39,4 +37,6 @@ public class EventsViewModel extends ViewModel {
     public void deleteEvent(Event event) {
         dBRepository.delete(event);
     }
+
+
 }

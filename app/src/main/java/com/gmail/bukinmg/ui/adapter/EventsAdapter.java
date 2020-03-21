@@ -26,9 +26,10 @@ import javax.inject.Inject;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {
 
+
     private List<Event> events = new ArrayList<>();
     private Comparator<Event> comparator = new EventYearComparator().thenComparing(new EventMonthComparator().thenComparing(new EventDayComparator()));
-
+    private String eMail;
 
     @Inject
     public EventsAdapter() {
@@ -38,8 +39,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         return events.get(position);
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public void setEvents(List<Event> eventList) {
+        this.events.clear();
+        for (Event event : eventList) {
+            if (event.getUserEmail().equals(eMail)) {
+                this.events.add(event);
+            }
+        }
         Collections.sort(events, comparator);
         notifyDataSetChanged();
     }

@@ -1,17 +1,17 @@
 package com.gmail.bukinmg.viewmodel;
 
-import android.net.MacAddress;
+import android.graphics.Color;
 
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.gmail.bukinmg.model.DBRepository;
 import com.gmail.bukinmg.model.RetrofitRepository;
-import com.gmail.bukinmg.model.entity.Day;
 import com.gmail.bukinmg.model.entity.MainEvent;
 import com.gmail.bukinmg.model.entity.User;
-import com.gmail.bukinmg.model.DBRepository;
 import com.gmail.bukinmg.utility.EventWrapper;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -21,24 +21,28 @@ import javax.inject.Inject;
 
 public class RegisterViewModel extends ViewModel {
 
+    public MutableLiveData<String> raceText = new MutableLiveData<>();
     public MutableLiveData<String> errorEmail = new MutableLiveData<>();
     public MutableLiveData<String> errorPassword = new MutableLiveData<>();
     public MutableLiveData<String> errorConfirmPassword = new MutableLiveData<>();
     public MutableLiveData<String> eMail = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
     public MutableLiveData<String> confirmPassword = new MutableLiveData<>();
-    private List<MainEvent> mainEventList = new ArrayList<>();
     public MutableLiveData<EventWrapper<Boolean>> loginTrigger = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> dialogTrigger = new MutableLiveData<>();
     public MutableLiveData<EventWrapper<Boolean>> dialogDismissTrigger = new MutableLiveData<>();
-    private DBRepository dBRepository;
+
+    private List<MainEvent> mainEventList = new ArrayList<>();
     private MainEvent mainEvent;
+
+    private DBRepository dBRepository;
 
 
 
     @Inject
     public RegisterViewModel(DBRepository dBRepository, RetrofitRepository retrofitRepository) {
         this.dBRepository = dBRepository;
+        raceText.setValue("list of races");
         eMail.setValue("");
         password.setValue("");
         confirmPassword.setValue("");
@@ -52,6 +56,12 @@ public class RegisterViewModel extends ViewModel {
         String userConfirmPassword = confirmPassword.getValue();
 
         List<User> usersList = dBRepository.getAllUsers();
+
+        if (mainEvent == null) {
+            raceText.setValue("choose race");
+        } else {
+            raceText.setValue(mainEvent.getName());
+        }
 
         if (userEmail.equals("")) {
             errorEmail.setValue("Enter eMail");
@@ -77,9 +87,9 @@ public class RegisterViewModel extends ViewModel {
             errorConfirmPassword.setValue(null);
         }
 
-        if (isPasswordValid(userPassword, userConfirmPassword) && isEmailValid(userEmail, usersList)) {
+        if (isPasswordValid(userPassword, userConfirmPassword) && isEmailValid(userEmail, usersList) && mainEvent != null) {
 
-            dBRepository.insert(new User(userEmail, userPassword, "1", "1"));
+            dBRepository.insert(new User(userEmail, userPassword, mainEvent.getName(), mainEvent.getDate()));
 
             loginTrigger.setValue(new EventWrapper<>(true));
         }
@@ -111,14 +121,6 @@ public class RegisterViewModel extends ViewModel {
         return mainEventList;
     }
 
-    @BindingAdapter("errorText")
-    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
-        if (errorText != null) {
-            textInputLayout.setError(errorText);
-        } else {
-            textInputLayout.setError(null);
-        }
-    }
 
     public void setMainEvent(MainEvent mainEvent) {
         this.mainEvent = mainEvent;
@@ -128,5 +130,32 @@ public class RegisterViewModel extends ViewModel {
         dialogDismissTrigger.setValue(new EventWrapper<>(true));
     }
 
+    public void setRaceText(String raceText) {
+        this.raceText.setValue(raceText);
+    }
+
+    public MainEvent getMainEvent() {
+        return mainEvent;
+    }
+
+
+
+    @BindingAdapter("errorText")
+    public static void setErrorText(TextInputLayout textInputLayout, String errorText) {
+        if (errorText != null) {
+            textInputLayout.setError(errorText);
+        } else {
+            textInputLayout.setError(null);
+        }
+    }
+
+    @BindingAdapter({"app:color"})
+    public static void setBackgroundButton(MaterialButton button, String color) {
+        if (color.equals("choose race")) {
+            button.setBackgroundColor(Color.parseColor("#b00020"));
+        } else {
+            button.setBackgroundColor(Color.parseColor("#3f51b5"));
+        }
+    }
 
 }
