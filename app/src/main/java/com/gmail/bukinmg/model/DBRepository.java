@@ -31,6 +31,7 @@ public class DBRepository {
     public DBRepository(UserDao userDao, EventDao eventDao) {
         this.userDao = userDao;
         this.eventDao = eventDao;
+        eventsLiveData = eventDao.getAllEventsLiveData();
     }
 
     public void insert(User user) {
@@ -66,14 +67,7 @@ public class DBRepository {
     }
 
     public LiveData<List<Event>> getAllLiveEvents() {
-        LiveData<List<Event>> events = new LiveData<List<Event>>() {
-        };
-        try {
-            events = new GetAllLiveEventsAsyncTask(eventDao).execute().get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return events;
+        return eventsLiveData;
     }
 
 
@@ -142,19 +136,6 @@ public class DBRepository {
         @Override
         protected List<Event> doInBackground(Void... voids) {
             return eventDao.getAllEvents();
-        }
-    }
-
-    private static class GetAllLiveEventsAsyncTask extends AsyncTask<Void, Void, LiveData<List<Event>>> {
-        private EventDao eventDao;
-
-        private GetAllLiveEventsAsyncTask(EventDao eventDao) {
-            this.eventDao = eventDao;
-        }
-
-        @Override
-        protected LiveData<List<Event>> doInBackground(Void... voids) {
-            return eventDao.getAllEventsLiveData();
         }
     }
 

@@ -21,6 +21,7 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<EventWrapper<Boolean>> registerTrigger = new MutableLiveData<>();
     private DBRepository dBRepository;
     private String mainEventDate;
+    private String mainEventName;
     @Inject
     public LoginViewModel(DBRepository dBRepository) {
         this.dBRepository = dBRepository;
@@ -64,6 +65,7 @@ public class LoginViewModel extends ViewModel {
         ) {
             if (user.getEMail().equals(eMail)) {
                 mainEventDate = user.getMainEventDate();
+                mainEventName = user.getMainEventName();
                 return true;
             }
         }
@@ -89,5 +91,9 @@ public class LoginViewModel extends ViewModel {
 
     public String getMainEventDate() {
         return mainEventDate;
+    }
+
+    public String getMainEventName() {
+        return mainEventName;
     }
 }

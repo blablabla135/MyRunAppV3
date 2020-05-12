@@ -5,15 +5,19 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gmail.bukinmg.R;
 import com.gmail.bukinmg.databinding.ActivityMainMenuBinding;
 import com.gmail.bukinmg.di.ViewModelFactory;
+import com.gmail.bukinmg.model.entity.Event;
 import com.gmail.bukinmg.ui.fragment.MenuDialogFragment;
 import com.gmail.bukinmg.ui.adapter.DatesAdapter;
 import com.gmail.bukinmg.viewmodel.MainMenuViewModel;
 
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -45,9 +49,11 @@ public class MainMenuActivity extends AppCompatActivity {
 
         String eMail = intentLogin.getStringExtra("email");
         String mainEventDate = intentLogin.getStringExtra("date");
+        String mainEventName = intentLogin.getStringExtra("name");
 
         mainMenuViewModel.setUserEmail(eMail);
         mainMenuViewModel.setMainEventDate(mainEventDate);
+        mainMenuViewModel.setMainEventName(mainEventName);
 
         mainMenuViewModel.initializeDates();
 
@@ -63,24 +69,32 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         mainMenuViewModel.addTrigger.observe(this, booleanEventWrapper -> {
-            if (mainMenuViewModel.addTrigger != null) {
+            if (mainMenuViewModel.addTrigger.getValue().getContentIfNotHandled()) {
                 dialogFragment.dismiss();
                 mainMenuViewModel.initializeDates();
             }
         });
 
         mainMenuViewModel.cancelTrigger.observe(this, booleanEventWrapper -> {
-            if (mainMenuViewModel.cancelTrigger != null) {
+            if (mainMenuViewModel.cancelTrigger.getValue().getContentIfNotHandled()) {
                 dialogFragment.dismiss();
             }
         });
 
         mainMenuViewModel.listTrigger.observe(this, booleanEventWrapper -> {
-            if (mainMenuViewModel.listTrigger != null) {
+            if (mainMenuViewModel.listTrigger.getValue().getContentIfNotHandled()) {
                 Intent intent = new Intent(MainMenuActivity.this, EventsActivity.class);
                 intent.putExtra("email", eMail);
                 intent.putExtra("date", mainEventDate);
+                intent.putExtra("name", mainEventName);
                 startActivity(intent);
+            }
+        });
+
+        mainMenuViewModel.getEventLiveData().observe(this, new Observer<List<Event>>() {
+            @Override
+            public void onChanged(List<Event> events) {
+                mainMenuViewModel.setResults();
             }
         });
 

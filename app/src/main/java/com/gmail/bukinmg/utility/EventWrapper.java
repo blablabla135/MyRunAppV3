@@ -20,13 +20,4 @@ public class EventWrapper<T> {
             return myContent;
         }
     }
-    public T peekContent(){
-        return myContent;
     }
-    public boolean hasBeenHandled() {
-        return hasBeenHandled;
-    }
-
-
-
-}

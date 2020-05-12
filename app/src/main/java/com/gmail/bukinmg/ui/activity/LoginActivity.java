@@ -37,16 +37,17 @@ public class LoginActivity extends AppCompatActivity {
         activityLoginBinding.setLifecycleOwner(this);
 
         loginViewModel.mainTrigger.observe(this, aBoolean -> {
-            if (loginViewModel.mainTrigger != null) {
+            if (loginViewModel.mainTrigger.getValue().getContentIfNotHandled()) {
                 Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
                 intent.putExtra("email", loginViewModel.eMail.getValue());
                 intent.putExtra("date", loginViewModel.getMainEventDate());
+                intent.putExtra("name", loginViewModel.getMainEventName());
                 startActivity(intent);
             }
         });
 
         loginViewModel.registerTrigger.observe(this, aBoolean -> {
-            if (loginViewModel.registerTrigger != null) {
+            if (loginViewModel.registerTrigger.getValue().getContentIfNotHandled()) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }

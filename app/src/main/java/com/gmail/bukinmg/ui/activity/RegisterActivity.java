@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         registerViewModel.loginTrigger.observe(this, aBoolean -> {
-            if (registerViewModel.loginTrigger != null) {
+            if (registerViewModel.loginTrigger.getValue().getContentIfNotHandled()) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }

@@ -53,6 +53,7 @@ public class EventsActivity extends AppCompatActivity {
 
         String eMail = intentMenu.getStringExtra("email");
         String mainEventDate = intentMenu.getStringExtra("date");
+        String mainEventName = intentMenu.getStringExtra("name");
 
         recyclerView = findViewById(R.id.events_recycler_view);
 
@@ -82,10 +83,11 @@ public class EventsActivity extends AppCompatActivity {
         }).attachToRecyclerView(recyclerView);
 
         eventsViewModel.backTrigger.observe(this, aBoolean -> {
-            if (eventsViewModel.backTrigger != null) {
+            if (eventsViewModel.backTrigger.getValue().getContentIfNotHandled()) {
                 Intent intent = new Intent(EventsActivity.this, MainMenuActivity.class);
                 intent.putExtra("email", eMail);
                 intent.putExtra("date", mainEventDate);
+                intent.putExtra("date", mainEventName);
                 startActivity(intent);
             }
         });
