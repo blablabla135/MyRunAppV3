@@ -7,6 +7,4 @@
  
  При написании использовался архитектурный подход MVVM, а так же библиотеки Retrofit, Dagger2, Room, DataBinding.
  
- ![](https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(1).png | width=100) ![](https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(2).png | width=100) ![](https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(3).png| width=100)
- 
- 
+ <img src="https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(1).png" width="275" height="555">  <img src="https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(2).png" width="275" height="555"> <img src="https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(3).png" width="275" height="555"> 
