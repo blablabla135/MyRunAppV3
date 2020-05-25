@@ -91,7 +91,11 @@ public class MainMenuViewModel extends ViewModel {
         totalDistance.setValue(sumDistance + " km");
         totalAttempts.setValue(String.valueOf(events.size()));
 
-        double average = sumDistance / events.size() + sumDistance % events.size();
+        double average = 0;
+        
+        if (events.size() != 0) {
+        average = sumDistance / events.size() + sumDistance % events.size();
+        }
 
         averageDistance.setValue(average + " km");
 
