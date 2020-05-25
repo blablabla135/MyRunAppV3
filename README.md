@@ -7,4 +7,6 @@
  
  При написании использовался архитектурный подход MVVM, а так же библиотеки Retrofit, Dagger2, Room, DataBinding.
  
+ ![1](https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(1).png) ![1](https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(2).png) ![1](https://github.com/blablabla135/Screenshots/blob/master/MyRunApp%20(3).png)
+ 
  
